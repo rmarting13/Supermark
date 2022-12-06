@@ -6,26 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>479</width>
-    <height>498</height>
+    <width>502</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
-  </property>
-  <property name="styleSheet">
-   <string notr="true">QMainWindow{
-background-color=black;
-}</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="txt1">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>-30</y>
+      <y>0</y>
       <width>491</width>
-      <height>521</height>
+      <height>471</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -37,88 +32,104 @@ background-color:aquamarine;
      <string>   SUPERMARK</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="usuarioL">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>180</y>
-      <width>113</width>
-      <height>20</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>180</y>
-      <width>47</width>
-      <height>13</height>
+      <y>100</y>
+      <width>141</width>
+      <height>51</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">*{
+background-color:teal;
+}</string>
+    </property>
     <property name="text">
-     <string>USUARIO</string>
+     <string>Registro de cliente</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>220</y>
-      <width>81</width>
-      <height>16</height>
+      <x>120</x>
+      <y>180</y>
+      <width>61</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>CONTRASEÑA</string>
+     <string>NOMBRE</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="contraL">
+   <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>220</x>
+      <x>120</x>
+      <y>220</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>EMAIL</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>260</y>
+      <width>61</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PASSWORD</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="nombreR">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>180</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="emailR">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
       <y>220</y>
       <width>113</width>
       <height>20</height>
      </rect>
     </property>
-    <property name="inputMask">
-     <string/>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="frame">
-     <bool>true</bool>
-    </property>
-    <property name="echoMode">
-     <enum>QLineEdit::Password</enum>
-    </property>
-    <property name="dragEnabled">
-     <bool>false</bool>
-    </property>
-    <property name="readOnly">
-     <bool>false</bool>
-    </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QLineEdit" name="contraR">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>270</y>
-      <width>75</width>
-      <height>23</height>
+      <x>190</x>
+      <y>260</y>
+      <width>113</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
-     <string>INGRESAR</string>
+     <string/>
+    </property>
+    <property name="echoMode">
+     <enum>QLineEdit::Password</enum>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>134</x>
-      <y>270</y>
+      <x>170</x>
+      <y>290</y>
       <width>91</width>
       <height>23</height>
      </rect>
@@ -127,26 +138,13 @@ background-color:aquamarine;
      <string>REGISTRARSE</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>290</y>
-      <width>81</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>¿usuario nuevo?</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>479</width>
+     <width>502</width>
      <height>21</height>
     </rect>
    </property>
