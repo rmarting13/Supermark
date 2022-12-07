@@ -1,14 +1,13 @@
 import sys
 from PyQt5 import QtWidgets, QtSql, uic #carga intefaz grafica
 from PyQt5.uic import loadUi
-# import vistaAdmin
+
 
 
 class Register(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         loadUi("interfaces/windowRegis.ui", self) #cambiar
-        #self.admin=vistaAdmin.vistaAdmin()
        
         self.openDB()
         self.setupUiComponents()
@@ -28,7 +27,7 @@ class Register(QtWidgets.QMainWindow):
         nombre=self.nombreR.text() #cambiar
         email=self.emailR.text()
         password = self.contraR.text() #cambiar
-
+        
         print(nombre,email,password)
         self.query.exec_(f'INSERT INTO Usuarios VALUES (NULL,"{email}","{password}","{nombre}",2)')
         

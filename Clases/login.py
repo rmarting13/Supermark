@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets, QtSql, uic #carga intefaz grafica
 from PyQt5.uic import loadUi
 import vistaAdmin
 import vistaCliente
+import registro
 
 class Login(QtWidgets.QMainWindow):
     def __init__(self):
@@ -10,12 +11,15 @@ class Login(QtWidgets.QMainWindow):
         loadUi("interfaces/pruebaQTd.ui", self) #cambiar
         self.admin=vistaAdmin.vistaAdmin()
         self.cliente=vistaCliente.vistaCliente()
-       
+        self.registro=registro.Register()
+
         self.openDB()
         self.setupUiComponents()
 
     def setupUiComponents(self):
         self.pushButton.clicked.connect(self.loginfunction) #cambiar
+        self.pushButton_2.clicked.connect(self.registro.show) #cambiar
+
 
     def openDB(self):
         self.db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
@@ -49,6 +53,7 @@ class Login(QtWidgets.QMainWindow):
         
 def main():
     app = QtWidgets.QApplication(sys.argv)
+    
     form = Login()
     form.show()
     app.exec_()
