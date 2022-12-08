@@ -25,7 +25,12 @@ class Producto:
   
     def agregar_producto(self):
         bdProductos.insertar_producto(self.__nombre,self.__precio,self.__stock)
-    
+    def ver_productos():
+        return bdProductos.ver_productos()
+    def tamanioTabla():
+        return bdProductos.tamanioTabla()
+
+        #bdProductos.ver_productos()
     # def ingresar_datos(self):
     #     self.nombre = input("Ingresar nombre: ")
     #     self.cantidad = int(input("Ingresar cantidad: "))

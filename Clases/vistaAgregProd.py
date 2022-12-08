@@ -20,7 +20,7 @@ class vistaAgregProd(QtWidgets.QMainWindow):
       producto1=producto.Producto(nombre,precio,stock)
       producto1.agregar_producto()
       print("Se agrego correctamente")
-   
+     
 
 def main():
       
