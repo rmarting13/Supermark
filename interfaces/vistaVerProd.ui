@@ -23,20 +23,27 @@
       <height>261</height>
      </rect>
     </property>
+    <property name="verticalScrollBarPolicy">
+     <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="autoScroll">
+     <bool>true</bool>
+    </property>
     <property name="showGrid">
      <bool>true</bool>
     </property>
+    <property name="wordWrap">
+     <bool>true</bool>
+    </property>
     <property name="rowCount">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="columnCount">
      <number>4</number>
     </property>
-    <row>
-     <property name="text">
-      <string/>
-     </property>
-    </row>
+    <attribute name="verticalHeaderVisible">
+     <bool>false</bool>
+    </attribute>
     <column>
      <property name="text">
       <string>id</string>
@@ -61,7 +68,7 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>240</x>
       <y>20</y>
       <width>151</width>
       <height>23</height>
@@ -69,6 +76,19 @@
     </property>
     <property name="text">
      <string>mostrar productos</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>20</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>salir</string>
     </property>
    </widget>
   </widget>

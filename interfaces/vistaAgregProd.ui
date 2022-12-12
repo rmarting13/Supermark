@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>351</width>
-    <height>265</height>
+    <height>360</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -55,10 +55,13 @@ font: 75 11pt &quot;Miriam CLM&quot;;
     <property name="styleSheet">
      <string notr="true">QLineEdit{
 border:0px;
-color:rgb(255,255,255);
+color:rgb(0,0,0);
 border-bottom:2px solid rgb(61,61,61);
 font:75 12pt &quot;Times New Roman&quot;;
 }</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_2">
@@ -73,7 +76,7 @@ font:75 12pt &quot;Times New Roman&quot;;
     <property name="styleSheet">
      <string notr="true">QLineEdit{
 border:0px;
-color:rgb(255,255,255);
+color:rgb(0,0,0);
 border-bottom:2px solid rgb(61,61,61);
 font:75 12pt &quot;Times New Roman&quot;;
 }</string>
@@ -109,7 +112,7 @@ font: 75 11pt &quot;Miriam CLM&quot;;
     <property name="styleSheet">
      <string notr="true">QLineEdit{
 border:0px;
-color:rgb(255,255,255);
+color:rgb(0,0,0);
 border-bottom:2px solid rgb(61,61,61);
 font:75 12pt &quot;Times New Roman&quot;;
 }</string>

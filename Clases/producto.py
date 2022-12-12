@@ -1,9 +1,13 @@
 import bdProductos
 class Producto:
-    def __init__(self,nombre,precio,stock):
+    def __init__(self,nombre,precio,stock,id=1):
         self.__nombre =nombre
         self.__precio = precio
         self.__stock=stock
+        self.__id=id
+    @property
+    def id(self):
+        return self.__id
     @property
     def nombre(self):
         return self.__nombre
@@ -13,6 +17,9 @@ class Producto:
     @property
     def stock(self):
         return self.__stock
+    @id.setter
+    def id(self, id):
+        self.__id = id
     @nombre.setter
     def nombre(self,nombre):
         self.__nombre=nombre
@@ -29,7 +36,14 @@ class Producto:
         return bdProductos.ver_productos()
     def tamanioTabla():
         return bdProductos.tamanioTabla()
-
+    def actualizar_producto(self):
+        bdProductos.actualizar_producto(self.__id,self.__nombre,self.__precio,self.__stock)
+    def verSoloUnProducto(id):
+        return bdProductos.verUnsoloProd(id)
+    def eliminar_producto(self):
+        bdProductos.eliminar_producto(self.__id)
+    def cerrarBd():
+        bdProductos.cerrar()
         #bdProductos.ver_productos()
     # def ingresar_datos(self):
     #     self.nombre = input("Ingresar nombre: ")

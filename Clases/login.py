@@ -19,8 +19,7 @@ class Login(QtWidgets.QMainWindow):
     def setupUiComponents(self):
         self.pushButton.clicked.connect(self.loginfunction) #cambiar
         self.pushButton_2.clicked.connect(self.registro.show) #cambiar
-
-
+           
     def openDB(self):
         self.db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
         self.db.setDatabaseName("BD/Supermark.db")# Cambiar poner el nombre de su base de datos

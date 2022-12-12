@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>578</width>
-    <height>424</height>
+    <height>427</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -42,7 +42,7 @@ p, li { white-space: pre-wrap; }
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:48pt;&quot;&gt;Admin&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="botonAct">
+   <widget class="QPushButton" name="botonBP">
     <property name="geometry">
      <rect>
       <x>170</x>
@@ -105,8 +105,26 @@ background-color:white
       <height>23</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">*{
+background-color:white
+}</string>
+    </property>
     <property name="text">
      <string>agregar producto</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>320</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>cerrar sesion</string>
     </property>
    </widget>
   </widget>
