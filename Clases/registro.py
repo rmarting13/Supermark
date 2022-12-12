@@ -27,10 +27,14 @@ class Register(QtWidgets.QMainWindow):
     def registerfunction(self):
         nombre=self.nombreR.text() #cambiar
         email=self.emailR.text()
-        password = self.contraR.text() #cambiar
+        password = self.contraR.text() #cambiarSss
+        dom = ""
+        tel = ""
 
         print(nombre,email,password)
+        #self.query.exec_(f'INSERT INTO Usuarios VALUES (NULL,"{email}","{password}","{nombre}","{dom}","{tel}",2)')
         self.query.exec_(f'INSERT INTO Usuarios VALUES (NULL,"{email}","{password}","{nombre}",2)')
+        
         
 def main():
     app = QtWidgets.QApplication(sys.argv)
