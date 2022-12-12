@@ -12,6 +12,7 @@ class vistaVerProd(QtWidgets.QMainWindow):
         self.pushButton.clicked.connect(self.ver_productos)
         #self.pushButton.clicked.connect(self.crear_tabla)
         self.pushButton_2.clicked.connect(self.close)
+        self.pushButton_2.clicked.connect(producto.Producto.cerrar())
     def ver_productos(self):
        datos=producto.Producto.ver_productos()
        print(datos)
