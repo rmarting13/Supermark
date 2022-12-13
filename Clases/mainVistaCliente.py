@@ -1,6 +1,6 @@
 import sys
 from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtCore import QPropertyAnimation , QEasingCurve
+from PyQt5.QtCore import QPropertyAnimation , QEasingCurve , Qt
 from ClientView import Ui_MainWindow
 from PopUp import Dialogo
 
@@ -121,7 +121,7 @@ class ClientView(QtWidgets.QMainWindow):
         if int(self.ui.lblCantTotalProdSelec.text()) < 30:
             desc = self.ui.tablaProductos.selectedIndexes()[0].data()
              #evita que se seleccione un producto ya agregado
-            if not self.__productoAgregado(desc):
+            if not self.__productoAgregado(self.ui.tablaSeleccion,desc):
                 precio = self.ui.tablaProductos.selectedIndexes()[1].data()
                 row = self.ui.tablaSeleccion.rowCount()
                 self.ui.tablaSeleccion.insertRow(row)
@@ -133,11 +133,11 @@ class ClientView(QtWidgets.QMainWindow):
         else:
              self.popUp.abrirDialogo("No se pueden seleccionar más productos!")
 
-    def __productoAgregado(self,prod):
-        if self.ui.tablaSeleccion.rowCount()!=0:
+    def __productoAgregado(self,tabla=QtWidgets.QTableWidget,prod=str):
+        if tabla.rowCount()!=0:
             productos=[]
-            for i in range(self.ui.tablaSeleccion.rowCount()):
-                productos.append(self.ui.tablaSeleccion.item(i,0).text())
+            for i in range(tabla.rowCount()):
+                productos.append(tabla.item(i,0).text())
             value = prod in productos
         else:
             value = False
@@ -168,11 +168,19 @@ class ClientView(QtWidgets.QMainWindow):
                     desc = self.ui.tablaSeleccion.item(row,0).clone()
                     cant = self.ui.tablaSeleccion.cellWidget(row,1).value()
                     sub = self.ui.tablaSeleccion.item(row,2).clone()
-                    rowDet = self.ui.tablaDetalle.rowCount()
-                    self.ui.tablaDetalle.insertRow(rowDet)
-                    self.ui.tablaDetalle.setItem(rowDet, 0, desc)
-                    self.ui.tablaDetalle.setItem(rowDet, 1, QtWidgets.QTableWidgetItem(str(cant)))
-                    self.ui.tablaDetalle.setItem(rowDet, 2, sub)
+                    if not self.__productoAgregado(self.ui.tablaDetalle,desc.text()):
+                        rowDet = self.ui.tablaDetalle.rowCount()
+                        self.ui.tablaDetalle.insertRow(rowDet)
+                        self.ui.tablaDetalle.setItem(rowDet, 0, desc)
+                        self.ui.tablaDetalle.setItem(rowDet, 1, QtWidgets.QTableWidgetItem(str(cant)))
+                        self.ui.tablaDetalle.setItem(rowDet, 2, sub)
+                    else:
+                        items = self.ui.tablaDetalle.findItems(desc.text(),Qt.MatchExactly)
+                        ind = self.ui.tablaDetalle.row(items[0])
+                        nuevoCant = int(self.ui.tablaDetalle.item(ind,1).text()) + int(cant)
+                        nuevoSub = float(self.ui.tablaDetalle.item(ind,2).text()) + float(sub.text())
+                        self.ui.tablaDetalle.item(ind,1).setText(str(nuevoCant))
+                        self.ui.tablaDetalle.item(ind,2).setText(str(nuevoSub))                   
                     suma = suma+float(sub.text())
             actual = float(self.ui.lblSubtotalImporte.text())
             self.ui.lblSubtotalImporte.setText(f"{actual+suma}")
@@ -191,6 +199,18 @@ class ClientView(QtWidgets.QMainWindow):
     
     def __accionBtnCancelarCompra(self):
         self.popUp.abrirDialogo("Se ha cancelado la compra!")
+        self.__limpiarFormularioCompras()
+        
+    def __eliminarFilas(self,tabla=QtWidgets.QTableWidget):
+        cant = tabla.rowCount()
+        for row in range(cant,-1,-1):
+            tabla.removeRow(row)
+
+    def __accionBtnConfirmarCompra(self):
+        self.popUp.abrirDialogo("Se ha confirmado la compra!")
+        self.__limpiarFormularioCompras()
+    
+    def __limpiarFormularioCompras(self):
         self.__eliminarFilas(self.ui.tablaDetalle)
         self.ui.lblSubtotalImporte.setText("0")
         self.ui.lblBonifImporte.clear()
@@ -198,18 +218,6 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.btnCancelar.setDisabled(True)
         self.ui.btnConfirmar.setDisabled(True)
         
-    def __eliminarFilas(self,tabla=QtWidgets.QTableWidget):
-        cant = tabla.rowCount()
-        for row in range(0,cant+1):
-            tabla.removeRow(row)
-
-    def __accionBtnConfirmarCompra(self):
-        self.popUp.abrirDialogo("Se ha confirmado la compra!")
-        self.ui.btnConfirmar.setDisabled(True)
-        
-
-   
-
     def vistaAdminfunction(self):
        pass
 
