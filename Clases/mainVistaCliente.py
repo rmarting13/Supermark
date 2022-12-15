@@ -3,10 +3,11 @@ from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtCore import QPropertyAnimation , QEasingCurve
 from ClientView import Ui_MainWindow
 from PopUp import Dialogo
-
+import usuarios
 class ClientView(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
+        self.id= " "
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.setupUiComponents()
@@ -61,7 +62,7 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.tablaProductos.verticalHeader().hide()
         self.ui.tablaSeleccion.verticalHeader().hide()
 
-        self.__cargarDatosCuenta()
+        #self.__cargarDatosCuenta()
         self.__cargarProductosDB()
         
         self.ui.tablaProductos.clicked.connect(self.__funcionAlClickearCeldasTablaProductos)
@@ -99,12 +100,19 @@ class ClientView(QtWidgets.QMainWindow):
         #llamar al método que inicia la ui de registro
         self.close()
 
-    def __cargarDatosCuenta(self):
-        self.ui.lblUsuario_2.setText("Cosme Fulanito")
-        self.ui.lblEmail_2.setText("cosmefulanito@example.com")
-        self.ui.lblDom_2.setText("Av. Siempre Viva 742, Springfield")
-        self.ui.lblBonif_2.setText("Si")
+    def datos(self,id):
+        self.__cargarDatosCuenta(id)
+        
 
+    def __cargarDatosCuenta(self,ide):
+        #Conectar con la DB
+        
+        tupla=usuarios.Usuarios.verPerfil(ide)
+        #print(self.id)
+        print(tupla)
+        self.ui.lblUsuario_2.setText(f"{tupla[0][3]}")
+        self.ui.lblEmail_2.setText(f"{tupla[0][1]}")
+        self.ui.lblDom_2.setText(f"{tupla[0][4]}")
     
     def __cargarProductosDB(self):
         row = self.ui.tablaProductos.rowCount()
@@ -208,10 +216,6 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.btnConfirmar.setDisabled(True)
         
 
-   
-
-    def vistaAdminfunction(self):
-       pass
 
 def main():
         app = QtWidgets.QApplication(sys.argv)

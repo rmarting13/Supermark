@@ -4,10 +4,14 @@ from PyQt5 import QtWidgets, QtGui #carga intefaz grafica
 from PyQt5.QtCore import QPropertyAnimation , QEasingCurve
 from AdminView import Ui_MainWindow
 from PopUp import Dialogo
+import usuarios
+import productos
 
 class AdminView(QtWidgets.QMainWindow):
     def __init__(self):
+       
         super().__init__()
+        self.id= " "
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.setupUiComponents()
@@ -37,7 +41,8 @@ class AdminView(QtWidgets.QMainWindow):
             self.animacion.setDuration(350)
             self.animacion.setEasingCurve(QEasingCurve.InOutCirc)
             self.animacion.start()
-
+    
+      
     def setupUiComponents(self):
         self.ui.btnAgregar.setDisabled(True)
         self.ui.btnEliminar.setDisabled(True)
@@ -59,8 +64,10 @@ class AdminView(QtWidgets.QMainWindow):
         self.ui.tablaDetalleCompra.setColumnWidth(1,60)
         self.ui.tablaDetalleCompra.setColumnWidth(2,80)
 
-        self.__cargarDatosCuenta()
+        #self.__cargarDatosCuenta()
+
         self.__cargarProductosDB()
+        
         self.__controlEntradaDeTexto()
 
         self.ui.tablaProductos.cellClicked.connect(self.__funcionAlClickearCeldasTablaProductos)
@@ -98,21 +105,35 @@ class AdminView(QtWidgets.QMainWindow):
     def __accionBtnCerrarSesion(self):
         #llamar al método que inicia la ui de registro
         self.close()
-
-    def __cargarDatosCuenta(self):
-        #Conectar con la DB
-        self.ui.lblUsuario_2.setText("Cosme Fulanito")
-        self.ui.lblEmail_2.setText("cosmefulanito@example.com")
-        self.ui.lblDom_2.setText("Av. Siempre Viva 742, Springfield")
-
-    def __cargarProductosDB(self):
-        row = self.ui.tablaProductos.rowCount()
-        self.ui.tablaProductos.insertRow(row)
-        self.ui.tablaProductos.setItem(row, 0, QtWidgets.QTableWidgetItem("Papas"))
-        self.ui.tablaProductos.setItem(row,1,QtWidgets.QTableWidgetItem("50"))
-        self.ui.tablaProductos.setItem(row, 1, QtWidgets.QTableWidgetItem("250"))
     
+    def datos(self,id):
+        self.__cargarDatosCuenta(id)
+        
+
+    def __cargarDatosCuenta(self,ide):
+        #Conectar con la DB
+        
+        tupla=usuarios.Usuarios.verPerfil(ide)
+        #print(self.id)
+        print(tupla)
+        self.ui.lblUsuario_2.setText(f"{tupla[0][3]}")
+        self.ui.lblEmail_2.setText(f"{tupla[0][1]}")
+        self.ui.lblDom_2.setText(f"{tupla[0][4]}")
+    
+    def __cargarProductosDB(self):
+
+        datos=productos.Producto.ver_productos()
+        print(datos)
+
+        row = self.ui.tablaProductos.rowCount()
+        for date in datos:
+           self.ui.tablaProductos.insertRow(row)
+           self.ui.tablaProductos.setItem(row, 0, QtWidgets.QTableWidgetItem(str(date[1])))
+           self.ui.tablaProductos.setItem(row,1,QtWidgets.QTableWidgetItem(str(date[3])))
+           self.ui.tablaProductos.setItem(row, 2, QtWidgets.QTableWidgetItem(str(date[2])))
+           row+=1
     def __controlEntradaDeTexto(self):
+       
         self.ui.lineEditDescripcion.textChanged.connect(self.__enableDisableBtnAgregar)
         self.ui.lineEditCantidad.textChanged.connect(self.__enableDisableBtnAgregar)
         self.ui.lineEditPrecio.textChanged.connect(self.__enableDisableBtnAgregar)
@@ -139,6 +160,11 @@ class AdminView(QtWidgets.QMainWindow):
         desc = self.ui.lineEditDescripcion.text()
         cant = self.ui.lineEditCantidad.text()
         precio = self.ui.lineEditPrecio.text()
+
+        #consulta
+        producto1=productos.Producto(desc,cant,precio)
+        producto1.agregar_producto()
+
         row = self.ui.tablaProductos.rowCount()
         self.ui.tablaProductos.insertRow(row)
         
@@ -158,9 +184,20 @@ class AdminView(QtWidgets.QMainWindow):
         desc = self.ui.lineEditDescripcion_2.text()
         cant = self.ui.lineEditCantidad_2.text()
         precio = self.ui.lineEditPrecio_2.text()
+        #print(desc,cant,precio)
+        #extraemos el nombre seleccionado en la tabla para buscaarlo y editarlo 
+        nombreC = self.ui.tablaProductos.selectedIndexes()[0].data()
+        print(nombreC)
+        
         self.ui.tablaProductos.setItem(selectedRow.row(),0,QtWidgets.QTableWidgetItem(desc))
         self.ui.tablaProductos.setItem(selectedRow.row(),1,QtWidgets.QTableWidgetItem(cant))
         self.ui.tablaProductos.setItem(selectedRow.row(),2,QtWidgets.QTableWidgetItem(precio))
+        
+        producto2=productos.Producto(desc,precio,cant)
+        #datos2=producto2.ver_productos()
+        print(producto2)
+        producto2.actualizar_producto(nombreC) 
+
         self.popUp.abrirDialogo("Producto modificado con éxito!")
         self.ui.lineEditDescripcion_2.clear()
         self.ui.lineEditCantidad_2.clear()
@@ -169,8 +206,13 @@ class AdminView(QtWidgets.QMainWindow):
     
     def __accionBtnEliminar(self):
         selectedRows = self.ui.tablaProductos.selectionModel().selectedRows()
+       
         for row in selectedRows:
             self.ui.tablaProductos.removeRow(row.row())
+        
+        desc = self.ui.lineEditDescripcion_2.text()
+        productos.Producto.eliminar_producto(desc)
+
         self.popUp.abrirDialogo("Producto eliminado con éxito!")
         self.ui.lineEditDescripcion_2.clear()
         self.ui.lineEditCantidad_2.clear()
@@ -181,10 +223,11 @@ class AdminView(QtWidgets.QMainWindow):
         desc = self.ui.tablaProductos.selectedIndexes()[0].data()
         cant = self.ui.tablaProductos.selectedIndexes()[1].data()
         precio = self.ui.tablaProductos.selectedIndexes()[2].data()
-
+        #print(desc,cant,precio)
         self.ui.lineEditDescripcion_2.setText(str(desc))
         self.ui.lineEditCantidad_2.setText(str(cant))
         self.ui.lineEditPrecio_2.setText(str(precio))
+
         self.ui.btnEliminar.setDisabled(False)
         self.ui.btnModificar.setDisabled(False)
 
@@ -208,9 +251,8 @@ class AdminView(QtWidgets.QMainWindow):
         #     self.ui.tablaDetalleCompra.setItem(rowDet, 2, QtWidgets.QTableWidgetItem(str(row[2])))
         pass
 
-    def vistaAdminfunction(self):
-       pass
 
+       
 def main():
         app = QtWidgets.QApplication(sys.argv)
         form = AdminView()

@@ -2,7 +2,6 @@ import sys
 from PyQt5 import QtWidgets, QtSql, uic #carga intefaz grafica
 from PyQt5.uic import loadUi
 import vistaDialog
-import login
 import bd_loginyRegis
 class Register(QtWidgets.QMainWindow):
     def __init__(self):

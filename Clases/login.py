@@ -22,9 +22,18 @@ class Login(QtWidgets.QMainWindow):
         password = self.contraL.text() #cambiar
         print(usuario,password)
         conexion=bd_loginyRegis.conexion_BD("BD/Supermark.db")
-        conexion.consulta(usuario,password)
-     
-       
+        op=conexion.consulta(usuario,password)
+        id=conexion.consulta3(usuario,password)
+        print(id)
+        if op==1:
+                 print("hola admin")
+                 self.admin.datos(id)
+                 self.admin.show()
+                
+        else:
+                print("hola cliente")
+                self.cliente.datos(id)
+                self.cliente.show()
         
 def main():
     app = QtWidgets.QApplication(sys.argv)
