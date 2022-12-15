@@ -9,9 +9,19 @@ class ClientView(QtWidgets.QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.__limites = None
         self.setupUiComponents()
         self.popUp = Dialogo()
+        #self.db = db conectar con la base de datos
         self.ui.MenuButton.clicked.connect(self.expandir)
+
+    @property
+    def limites(self):
+        return self.__limites
+
+    @limites.setter
+    def limites(self,lim):
+        self.__limites = lim
 
     def expandir(self):
         ancho = self.ui.MenuIzquierdo.width()
@@ -107,15 +117,40 @@ class ClientView(QtWidgets.QMainWindow):
 
     
     def __cargarProductosDB(self):
+        #TIP: crear una lista para almacenar cada fila de la base de datos, luego pasarlas como parámetros
+        #por referencia a los generadores de las tablas de la UI, de modo que las modificaciones realizadas
+        #en los elementos de las tablas impacten en forma directa sobre el contenido de las listas, para luego
+        #volver a enviar las mismas listas a la base de datos para actualizar su contenido.
+        
+        #self.__completarTablaProductos(self.db.consultaFetchAll)
+        
+        """------------------------------------------------------------------------------------------------"""
+        #El siguiente bloque de código agrega 2 productos a la tabla productos a modo de ejemplo, eliminar
+        #una vez conectada la base de datos
+        lim = {}
         row = self.ui.tablaProductos.rowCount()
         self.ui.tablaProductos.insertRow(row)
         self.ui.tablaProductos.setItem(row, 0, QtWidgets.QTableWidgetItem("Papas"))
         self.ui.tablaProductos.setItem(row, 1, QtWidgets.QTableWidgetItem("250"))
-
+        lim["Papas"] = 35
         row = self.ui.tablaProductos.rowCount()
         self.ui.tablaProductos.insertRow(row)
         self.ui.tablaProductos.setItem(row, 0, QtWidgets.QTableWidgetItem("Merca"))
         self.ui.tablaProductos.setItem(row, 1, QtWidgets.QTableWidgetItem("760"))
+        lim["Merca"] = 15
+        self.limites = lim
+        """------------------------------------------------------------------------------------------------"""
+
+    def __completarTablaProductos(self,datos=list):
+        lim = {}
+        for item in datos:
+            row = self.ui.tablaProductos.rowCount()
+            self.ui.tablaProductos.insertRow(row)
+            self.ui.tablaProductos.setItem(row, 0, QtWidgets.QTableWidgetItem(item[1]))
+            self.ui.tablaProductos.setItem(row, 1, QtWidgets.QTableWidgetItem(item[3]))
+            lim[item[1]] = item[2]
+        self.limites = lim #lim contiene el stock de cada producto, el cual indica el límite que puede comprar el cliente
+
 
     def __funcionAlClickearCeldasTablaProductos(self):
         if int(self.ui.lblCantTotalProdSelec.text()) < 30:
@@ -126,8 +161,9 @@ class ClientView(QtWidgets.QMainWindow):
                 row = self.ui.tablaSeleccion.rowCount()
                 self.ui.tablaSeleccion.insertRow(row)
                 self.ui.tablaSeleccion.setItem(row,0,QtWidgets.QTableWidgetItem(desc))
+                maxim = min(int(self.limites[desc]),30) #Determina el máximo stock disponible para comprar
                 #agrega una columna con QSpinBox
-                self.ui.tablaSeleccion.setCellWidget(row,1,QtWidgets.QSpinBox(minimum=0,maximum=30))
+                self.ui.tablaSeleccion.setCellWidget(row,1,QtWidgets.QSpinBox(minimum=0,maximum=maxim))
                 self.ui.tablaSeleccion.setItem(row,2,QtWidgets.QTableWidgetItem(str(0)))       
                 self.ui.tablaSeleccion.cellWidget(row,1).valueChanged.connect(lambda: self.__funcionSpinBox(precio,row))
         else:
@@ -160,42 +196,99 @@ class ClientView(QtWidgets.QMainWindow):
         else:
              self.popUp.abrirDialogo("No se pueden seleccionar más productos!")
 
+    def __haySuficienteStock(self,row,valor):
+        prod = self.ui.tablaSeleccion.item(row,0).text()
+        return self.limites[prod] >= valor
+
+
     def __accionBtnAgregarAlCarrito(self):
         if self.ui.tablaSeleccion.rowCount()!=0:
-            suma = 0; bonif = 0
-            for row in range(0,self.ui.tablaSeleccion.rowCount()):
-                if self.ui.tablaSeleccion.item(row,2).text() != "0":
-                    desc = self.ui.tablaSeleccion.item(row,0).clone()
-                    cant = self.ui.tablaSeleccion.cellWidget(row,1).value()
-                    sub = self.ui.tablaSeleccion.item(row,2).clone()
-                    if not self.__productoAgregado(self.ui.tablaDetalle,desc.text()):
-                        rowDet = self.ui.tablaDetalle.rowCount()
-                        self.ui.tablaDetalle.insertRow(rowDet)
-                        self.ui.tablaDetalle.setItem(rowDet, 0, desc)
-                        self.ui.tablaDetalle.setItem(rowDet, 1, QtWidgets.QTableWidgetItem(str(cant)))
-                        self.ui.tablaDetalle.setItem(rowDet, 2, sub)
-                    else:
-                        items = self.ui.tablaDetalle.findItems(desc.text(),Qt.MatchExactly)
-                        ind = self.ui.tablaDetalle.row(items[0])
-                        nuevoCant = int(self.ui.tablaDetalle.item(ind,1).text()) + int(cant)
-                        nuevoSub = float(self.ui.tablaDetalle.item(ind,2).text()) + float(sub.text())
-                        self.ui.tablaDetalle.item(ind,1).setText(str(nuevoCant))
-                        self.ui.tablaDetalle.item(ind,2).setText(str(nuevoSub))                   
-                    suma = suma+float(sub.text())
+            datos = self.__generarListaDeTuplas(self.ui.tablaSeleccion)
+            self.__completarTablaDetalle(datos)
+            self.popUp.abrirDialogo("Productos agregados con éxito!")
+            self.__limpiarFormularioInicio()
+            self.ui.btnConfirmar.setDisabled(False)
+            self.ui.btnCancelar.setDisabled(False)
+
+        # if self.ui.tablaSeleccion.rowCount()!=0:
+        #     suma = 0; bonif = 0
+        #     for row in range(0,self.ui.tablaSeleccion.rowCount()):
+        #         if self.ui.tablaSeleccion.item(row,2).text() != "0":
+        #             desc = self.ui.tablaSeleccion.item(row,0).clone()
+        #             cant = self.ui.tablaSeleccion.cellWidget(row,1).value()
+        #             sub = self.ui.tablaSeleccion.item(row,2).clone()
+        #             if not self.__productoAgregado(self.ui.tablaDetalle,desc.text()):
+        #                 rowDet = self.ui.tablaDetalle.rowCount()
+        #                 self.ui.tablaDetalle.insertRow(rowDet)
+        #                 self.ui.tablaDetalle.setItem(rowDet, 0, desc)
+        #                 self.ui.tablaDetalle.setItem(rowDet, 1, QtWidgets.QTableWidgetItem(str(cant)))
+        #                 self.ui.tablaDetalle.setItem(rowDet, 2, sub)
+        #             else:
+        #                 items = self.ui.tablaDetalle.findItems(desc.text(),Qt.MatchExactly)
+        #                 ind = self.ui.tablaDetalle.row(items[0])
+        #                 nuevoCant = int(self.ui.tablaDetalle.item(ind,1).text()) + int(cant)
+        #                 nuevoSub = float(self.ui.tablaDetalle.item(ind,2).text()) + float(sub.text())
+        #                 self.ui.tablaDetalle.item(ind,1).setText(str(nuevoCant))
+        #                 self.ui.tablaDetalle.item(ind,2).setText(str(nuevoSub))                   
+        #             suma = suma+float(sub.text())
+        #     actual = float(self.ui.lblSubtotalImporte.text())
+        #     self.ui.lblSubtotalImporte.setText(f"{actual+suma}")
+        #     if self.ui.lblBonif_2.text().upper() == "SI":
+        #         bonif = float(self.ui.lblSubtotalImporte.text())*0.10
+        #     self.ui.lblBonifImporte.setText(str(bonif))
+        #     self.ui.lblTotalImporte.setText(str((actual+suma)-bonif))
+            #Se limpia la lista de productos seleccionados para evitar agregar productos repetidos en el carrito
+            #self.popUp.abrirDialogo("Productos agregados con éxito!")
+            #self.__limpiarFormularioInicio
+            # self.__eliminarFilas(self.ui.tablaSeleccion)
+            # self.ui.lblCantTotalProdSelec.setText("0")
+            # self.ui.lblSubtotalSelec.setText("0")
+            # self.ui.btnAgregar.setDisabled(True)
+            # self.ui.btnConfirmar.setDisabled(False)
+            # self.ui.btnCancelar.setDisabled(False)
+        
+    def __completarTablaDetalle(self,datos=list):
+        suma = 0; bonif = 0
+        for row in datos:
+            if row[2].text() != "0":
+                desc = row[0]
+                cant = row[1]
+                sub = row[2]
+                if not self.__productoAgregado(self.ui.tablaDetalle,desc.text()):
+                    rowDet = self.ui.tablaDetalle.rowCount()
+                    self.ui.tablaDetalle.insertRow(rowDet)
+                    self.ui.tablaDetalle.setItem(rowDet, 0, desc)
+                    self.ui.tablaDetalle.setItem(rowDet, 1, cant)
+                    self.ui.tablaDetalle.setItem(rowDet, 2, sub)
+                else:
+                    items = self.ui.tablaDetalle.findItems(desc.text(),Qt.MatchExactly)
+                    ind = self.ui.tablaDetalle.row(items[0]) #Nos interesa la primera aparición
+                    nuevoCant = int(self.ui.tablaDetalle.item(ind,1).text()) + int(cant.text())
+                    nuevoSub = float(self.ui.tablaDetalle.item(ind,2).text()) + float(sub.text())
+                    self.ui.tablaDetalle.item(ind,1).setText(str(nuevoCant))
+                    self.ui.tablaDetalle.item(ind,2).setText(str(nuevoSub))                   
+                suma = suma+float(sub.text())
             actual = float(self.ui.lblSubtotalImporte.text())
             self.ui.lblSubtotalImporte.setText(f"{actual+suma}")
             if self.ui.lblBonif_2.text().upper() == "SI":
                 bonif = float(self.ui.lblSubtotalImporte.text())*0.10
             self.ui.lblBonifImporte.setText(str(bonif))
             self.ui.lblTotalImporte.setText(str((actual+suma)-bonif))
-            #Se limpia la lista de productos seleccionados para evitar agregar productos repetidos en el carrito
-            self.popUp.abrirDialogo("Productos agregados con éxito!")
-            self.__eliminarFilas(self.ui.tablaSeleccion)
-            self.ui.lblCantTotalProdSelec.setText("0")
-            self.ui.lblSubtotalSelec.setText("0")
-            self.ui.btnAgregar.setDisabled(True)
-            self.ui.btnConfirmar.setDisabled(False)
-            self.ui.btnCancelar.setDisabled(False)
+
+    def __generarListaDeTuplas(self,tabla=QtWidgets.QTableWidget):
+    #Retorna los elementos de una tabla en formato de lista de tuplas, donde cada tupla de la lista
+    #es una fila, y cada elemento de la tupla (fila) es una columna
+        filas = []
+        for row in range(tabla.rowCount()):
+            columnas = []
+            for col in range(tabla.columnCount()):
+                if isinstance(tabla.cellWidget(row,col),QtWidgets.QSpinBox):
+                    cant = str(tabla.cellWidget(row,col).value())
+                    columnas.append(QtWidgets.QTableWidgetItem(cant))
+                else:
+                    columnas.append((tabla.item(row,col)).clone())
+            filas.append(tuple(columnas))
+        return filas
     
     def __accionBtnCancelarCompra(self):
         self.popUp.abrirDialogo("Se ha cancelado la compra!")
@@ -207,9 +300,27 @@ class ClientView(QtWidgets.QMainWindow):
             tabla.removeRow(row)
 
     def __accionBtnConfirmarCompra(self):
-        self.popUp.abrirDialogo("Se ha confirmado la compra!")
+        """------------------------------------------------------------------------------------------------"""
+        #En productos se almacena la lista de tuplas que representa la lista de productos comprados
+        productos = self.__generarListaDeTuplas(self.ui.tablaDetalle)
+        #trabajar con esta tupla para actualizar la base de datos, recordar que los elementos de las tuplas
+        #son del tipo QTableWidgetItem, cuyo método para obtener el dato es productos[indice1][indice2].text()
+        #donde indice1 es la fila y indice2 es la columna. También recordar que la columna 0 es el nombre (descripción)
+        #del producto (ver tabla Detalle de compra)
+        #Realizar las consultas para dar de baja los productos comprados.
+        """------------------------------------------------------------------------------------------------"""
+        
+        self.popUp.abrirDialogo("Se ha confirmado la compra!")    
         self.__limpiarFormularioCompras()
     
+
+    
+    def __limpiarFormularioInicio(self):
+        self.__eliminarFilas(self.ui.tablaSeleccion)
+        self.ui.lblCantTotalProdSelec.setText("0")
+        self.ui.lblSubtotalSelec.setText("0")
+        self.ui.btnAgregar.setDisabled(True)
+
     def __limpiarFormularioCompras(self):
         self.__eliminarFilas(self.ui.tablaDetalle)
         self.ui.lblSubtotalImporte.setText("0")
