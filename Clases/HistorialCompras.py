@@ -18,20 +18,19 @@ class HistorialCompras(QtWidgets.QMainWindow):
         self.ui.tablaDetalleCompra.setColumnWidth(2,60)
         self.ui.tablaDetalleCompra.verticalHeader().hide()
 
-        #self.ui.comboBox.activated("").connect(lambda: self.__cargarRegistro())
-        pass
+        #self.ui.comboBox.activated("").connect(lambda: self.__cargarRegistro("",db))
+        self.ui.comboBox.activated.connect(lambda: self.cargarRegistro("",""))
 
-    def __cargarHistorial(self,db):
+    def cargarHistorial(self,db):
         #para cada registro de compras en la db
         compras = db
         self.ui.comboBox.addItems(compras)
 
     
-
-    def __cargarRegistro(self,orden,db):
+    def cargarRegistro(self,orden,db):
         #buscar nro de orden en db
-        listaTuplas = db.getDatos(orden)
-        self.ui.lblFecha.setText("")
+        listaTuplas = db.consula(orden)
+        self.ui.lblFecha.setText("aqui va la fecha correspondiente a la compra")
         for row in range(0,db.rowCount()):
             self.ui.tablaDetalleCompra.insertRow(row)
             self.ui.tablaDetalleCompra.setItem(row,0,QtWidgets.QTableWidgetItem(listaTuplas[row][0]))
@@ -42,4 +41,11 @@ class HistorialCompras(QtWidgets.QMainWindow):
         self.ui.lblBonifImporte.setText("")
         self.ui.lblTotalImporte.setText("")
 
-    
+def main():
+    app = QtWidgets.QApplication(sys.argv)
+    form = HistorialCompras()
+    form.show()
+    app.exec_()
+
+if __name__ == '__main__':
+    main()

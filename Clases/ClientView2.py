@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'AdminView.ui'
+# Form implementation generated from reading ui file 'ClientView.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1111, 734)
+        MainWindow.resize(778, 614)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
         self.MenuButton.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/icons/4619355-200.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.MenuButton.setIcon(QtGui.QIcon("interfaces/icons/bars.png"))
+        self.MenuButton.setIcon(icon)
         self.MenuButton.setIconSize(QtCore.QSize(30, 30))
         self.MenuButton.setFlat(False)
         self.MenuButton.setObjectName("MenuButton")
@@ -132,13 +132,13 @@ class Ui_MainWindow(object):
         self.CuentaButton.setIcon(icon2)
         self.CuentaButton.setIconSize(QtCore.QSize(30, 30))
         self.CuentaButton.setObjectName("CuentaButton")
-        self.InventarioButton = QtWidgets.QPushButton(self.Desplegable2)
-        self.InventarioButton.setGeometry(QtCore.QRect(0, 160, 180, 50))
+        self.CompraButton = QtWidgets.QPushButton(self.Desplegable2)
+        self.CompraButton.setGeometry(QtCore.QRect(0, 160, 180, 50))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(11)
-        self.InventarioButton.setFont(font)
-        self.InventarioButton.setStyleSheet("QPushButton{\n"
+        self.CompraButton.setFont(font)
+        self.CompraButton.setStyleSheet("QPushButton{\n"
 "    background-color: transparent;\n"
 "    border: none;\n"
 "    padding: 10px;\n"
@@ -149,9 +149,9 @@ class Ui_MainWindow(object):
 "}")
         icon3 = QtGui.QIcon()
         icon3.addPixmap(QtGui.QPixmap(":/icons/icons/carrito_transp.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.InventarioButton.setIcon(icon3)
-        self.InventarioButton.setIconSize(QtCore.QSize(30, 30))
-        self.InventarioButton.setObjectName("InventarioButton")
+        self.CompraButton.setIcon(icon3)
+        self.CompraButton.setIconSize(QtCore.QSize(30, 30))
+        self.CompraButton.setObjectName("CompraButton")
         self.verticalLayout_2.addWidget(self.Desplegable2)
         self.horizontalLayout_2.addWidget(self.MenuIzquierdo)
         self.MenuDerecho = QtWidgets.QFrame(self.frame_2)
@@ -271,8 +271,8 @@ class Ui_MainWindow(object):
         self.PaginaInicio.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 222, 55, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "color: rgb(255, 222, 52);")
         self.PaginaInicio.setObjectName("PaginaInicio")
-        self.tablaClientes = QtWidgets.QTableWidget(self.PaginaInicio)
-        self.tablaClientes.setGeometry(QtCore.QRect(30, 160, 561, 521))
+        self.tablaProductos = QtWidgets.QTableWidget(self.PaginaInicio)
+        self.tablaProductos.setGeometry(QtCore.QRect(50, 160, 251, 401))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -337,128 +337,193 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
         brush.setStyle(QtCore.Qt.NoBrush)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
-        self.tablaClientes.setPalette(palette)
-        self.tablaClientes.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+        self.tablaProductos.setPalette(palette)
+        self.tablaProductos.setStyleSheet("background-color: rgb(255, 255, 255);\n"
 "font: 8pt \"MS Shell Dlg 2\";\n"
 "border-color: rgb(0, 0, 0);\n"
 "color: rgb(0, 0, 0);\n"
 "border-radius: 5px;\n"
 "border-style: solid;\n"
 "border-width: 1px;")
-        self.tablaClientes.setColumnCount(4)
-        self.tablaClientes.setObjectName("tablaClientes")
-        self.tablaClientes.setRowCount(0)
+        self.tablaProductos.setColumnCount(2)
+        self.tablaProductos.setObjectName("tablaProductos")
+        self.tablaProductos.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
         item.setFont(font)
-        self.tablaClientes.setHorizontalHeaderItem(0, item)
+        self.tablaProductos.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
         item.setFont(font)
-        self.tablaClientes.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        item.setFont(font)
-        self.tablaClientes.setHorizontalHeaderItem(2, item)
-        item = QtWidgets.QTableWidgetItem()
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        item.setFont(font)
-        self.tablaClientes.setHorizontalHeaderItem(3, item)
-        self.lblListaClientes = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblListaClientes.setGeometry(QtCore.QRect(180, 120, 251, 31))
+        self.tablaProductos.setHorizontalHeaderItem(1, item)
+        self.lblListaProductos = QtWidgets.QLabel(self.PaginaInicio)
+        self.lblListaProductos.setGeometry(QtCore.QRect(50, 120, 251, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(18)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.lblListaClientes.setFont(font)
-        self.lblListaClientes.setAutoFillBackground(False)
-        self.lblListaClientes.setStyleSheet("background-color: rgb(255, 0, 0);\n"
+        self.lblListaProductos.setFont(font)
+        self.lblListaProductos.setAutoFillBackground(False)
+        self.lblListaProductos.setStyleSheet("background-color: rgb(255, 0, 0);\n"
 "color: rgb(255, 255, 127);\n"
 "font: 18pt \"Century Gothic\";\n"
 "border-color: rgb(0, 0, 0);\n"
 "border-radius: 5px;\n"
 "border-width: 2px;\n"
 "font-color:rgb(0, 0, 0);")
-        self.lblListaClientes.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblListaClientes.setObjectName("lblListaClientes")
+        self.lblListaProductos.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblListaProductos.setObjectName("lblListaProductos")
+        self.btnAgregar = QtWidgets.QPushButton(self.PaginaInicio)
+        self.btnAgregar.setGeometry(QtCore.QRect(350, 530, 131, 31))
+        self.btnAgregar.setStyleSheet("QPushButton{\n"
+"    background-color: rgb(0, 170, 0);\n"
+"    font: 75 10pt \"Century Gothic\";\n"
+"    border-radius: 5px;\n"
+"    border-width: 3px\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: #0000ff;\n"
+"}")
+        self.btnAgregar.setObjectName("btnAgregar")
         self.label = QtWidgets.QLabel(self.PaginaInicio)
-        self.label.setGeometry(QtCore.QRect(350, -30, 320, 195))
+        self.label.setGeometry(QtCore.QRect(330, -30, 320, 195))
         self.label.setStyleSheet("background-color: transparent;\n"
 "image: url(:/backgraundImages/images/log.png);")
         self.label.setText("")
         self.label.setObjectName("label")
-        self.lblInicio = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblInicio.setGeometry(QtCore.QRect(140, 50, 111, 41))
-        self.lblInicio.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
+        self.lblDetalle_4 = QtWidgets.QLabel(self.PaginaInicio)
+        self.lblDetalle_4.setGeometry(QtCore.QRect(120, 50, 111, 41))
+        self.lblDetalle_4.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
 "background-color: #ff5500;\n"
 "border-radius: 5px;\n"
 "border-width: 5px;\n"
 "color: rgb(255, 255, 255);")
-        self.lblInicio.setTextFormat(QtCore.Qt.AutoText)
-        self.lblInicio.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblInicio.setWordWrap(False)
-        self.lblInicio.setObjectName("lblInicio")
-        self.lblDetalleCompra = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblDetalleCompra.setGeometry(QtCore.QRect(670, 120, 271, 31))
+        self.lblDetalle_4.setTextFormat(QtCore.Qt.AutoText)
+        self.lblDetalle_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblDetalle_4.setWordWrap(False)
+        self.lblDetalle_4.setObjectName("lblDetalle_4")
+        self.tablaSeleccion = QtWidgets.QTableWidget(self.PaginaInicio)
+        self.tablaSeleccion.setGeometry(QtCore.QRect(340, 170, 321, 271))
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
+        brush.setStyle(QtCore.Qt.NoBrush)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
+        brush.setStyle(QtCore.Qt.NoBrush)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 128))
+        brush.setStyle(QtCore.Qt.NoBrush)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
+        self.tablaSeleccion.setPalette(palette)
+        self.tablaSeleccion.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"font: 8pt \"MS Shell Dlg 2\";\n"
+"border-color: rgb(0, 0, 0);\n"
+"color: rgb(0, 0, 0);\n"
+"border-radius: 5px;\n"
+"border-style: solid;\n"
+"border-width: 1px;")
+        self.tablaSeleccion.setColumnCount(3)
+        self.tablaSeleccion.setObjectName("tablaSeleccion")
+        self.tablaSeleccion.setRowCount(0)
+        item = QtWidgets.QTableWidgetItem()
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        item.setFont(font)
+        self.tablaSeleccion.setHorizontalHeaderItem(0, item)
+        item = QtWidgets.QTableWidgetItem()
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        item.setFont(font)
+        self.tablaSeleccion.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        font = QtGui.QFont()
+        font.setBold(True)
+        font.setWeight(75)
+        item.setFont(font)
+        self.tablaSeleccion.setHorizontalHeaderItem(2, item)
+        self.lblListaProductos_2 = QtWidgets.QLabel(self.PaginaInicio)
+        self.lblListaProductos_2.setGeometry(QtCore.QRect(360, 130, 271, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
-        font.setPointSize(15)
+        font.setPointSize(16)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.lblDetalleCompra.setFont(font)
-        self.lblDetalleCompra.setAutoFillBackground(False)
-        self.lblDetalleCompra.setStyleSheet("background-color: rgb(255, 0, 0);\n"
+        self.lblListaProductos_2.setFont(font)
+        self.lblListaProductos_2.setAutoFillBackground(False)
+        self.lblListaProductos_2.setStyleSheet("background-color: rgb(255, 0, 0);\n"
 "color: rgb(255, 255, 127);\n"
-"font: 15pt \"Century Gothic\";\n"
+"font: 16pt \"Century Gothic\";\n"
 "border-color: rgb(0, 0, 0);\n"
 "border-radius: 5px;\n"
 "border-width: 2px;\n"
 "font-color:rgb(0, 0, 0);")
-        self.lblDetalleCompra.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblDetalleCompra.setObjectName("lblDetalleCompra")
-        self.tablaDetalleCompra = QtWidgets.QTableWidget(self.PaginaInicio)
-        self.tablaDetalleCompra.setGeometry(QtCore.QRect(620, 200, 371, 321))
-        self.tablaDetalleCompra.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"border-radius: 5px;\n"
-"border-style: solid;\n"
-"border-width: 1px;\n"
-"border-color: rgb(0, 0, 0);\n"
-"color: rgb(0, 0, 0);")
-        self.tablaDetalleCompra.setFrameShape(QtWidgets.QFrame.Box)
-        self.tablaDetalleCompra.setRowCount(0)
-        self.tablaDetalleCompra.setColumnCount(3)
-        self.tablaDetalleCompra.setObjectName("tablaDetalleCompra")
-        item = QtWidgets.QTableWidgetItem()
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        item.setFont(font)
-        self.tablaDetalleCompra.setHorizontalHeaderItem(0, item)
-        item = QtWidgets.QTableWidgetItem()
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        item.setFont(font)
-        self.tablaDetalleCompra.setHorizontalHeaderItem(1, item)
-        item = QtWidgets.QTableWidgetItem()
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        item.setFont(font)
-        self.tablaDetalleCompra.setHorizontalHeaderItem(2, item)
+        self.lblListaProductos_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblListaProductos_2.setObjectName("lblListaProductos_2")
         self.lblListaProductos_3 = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblListaProductos_3.setGeometry(QtCore.QRect(680, 530, 241, 21))
+        self.lblListaProductos_3.setGeometry(QtCore.QRect(340, 450, 251, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
@@ -476,67 +541,28 @@ class Ui_MainWindow(object):
 "font-color:rgb(0, 0, 0);")
         self.lblListaProductos_3.setAlignment(QtCore.Qt.AlignCenter)
         self.lblListaProductos_3.setObjectName("lblListaProductos_3")
-        self.lblCantTotalProd = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblCantTotalProd.setGeometry(QtCore.QRect(920, 530, 71, 31))
+        self.lblCantTotalProdSelec = QtWidgets.QLabel(self.PaginaInicio)
+        self.lblCantTotalProdSelec.setGeometry(QtCore.QRect(590, 450, 71, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.lblCantTotalProd.setFont(font)
-        self.lblCantTotalProd.setAutoFillBackground(False)
-        self.lblCantTotalProd.setStyleSheet("background-color: white;\n"
+        self.lblCantTotalProdSelec.setFont(font)
+        self.lblCantTotalProdSelec.setAutoFillBackground(False)
+        self.lblCantTotalProdSelec.setStyleSheet("background-color: white;\n"
 "color: rgb(0, 0, 0);\n"
 "font: 11pt \"Century Gothic\";\n"
 "border-color: rgb(0, 0, 0);\n"
 "border-radius: 5px;\n"
 "border-width: 2px;\n"
 "border-style: solid;")
-        self.lblCantTotalProd.setText("")
-        self.lblCantTotalProd.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblCantTotalProd.setObjectName("lblCantTotalProd")
-        self.lblListaProductos_4 = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblListaProductos_4.setGeometry(QtCore.QRect(790, 570, 81, 21))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.lblListaProductos_4.setFont(font)
-        self.lblListaProductos_4.setAutoFillBackground(False)
-        self.lblListaProductos_4.setStyleSheet("background-color: transparent;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 12pt \"Century Gothic\";\n"
-"border-color: rgb(0, 0, 0);\n"
-"border-radius: 5px;\n"
-"border-width: 2px;\n"
-"font-color:rgb(0, 0, 0);")
-        self.lblListaProductos_4.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblListaProductos_4.setObjectName("lblListaProductos_4")
-        self.lblSubtotalImporte = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblSubtotalImporte.setGeometry(QtCore.QRect(880, 570, 111, 31))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.lblSubtotalImporte.setFont(font)
-        self.lblSubtotalImporte.setAutoFillBackground(False)
-        self.lblSubtotalImporte.setStyleSheet("background-color: white;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 11pt \"Century Gothic\";\n"
-"border-color: rgb(0, 0, 0);\n"
-"border-radius: 5px;\n"
-"border-width: 2px;\n"
-"border-style: solid;")
-        self.lblSubtotalImporte.setText("")
-        self.lblSubtotalImporte.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblSubtotalImporte.setObjectName("lblSubtotalImporte")
+        self.lblCantTotalProdSelec.setText("")
+        self.lblCantTotalProdSelec.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblCantTotalProdSelec.setObjectName("lblCantTotalProdSelec")
         self.lblListaProductos_5 = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblListaProductos_5.setGeometry(QtCore.QRect(680, 610, 201, 21))
+        self.lblListaProductos_5.setGeometry(QtCore.QRect(320, 490, 251, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(12)
@@ -554,110 +580,32 @@ class Ui_MainWindow(object):
 "font-color:rgb(0, 0, 0);")
         self.lblListaProductos_5.setAlignment(QtCore.Qt.AlignCenter)
         self.lblListaProductos_5.setObjectName("lblListaProductos_5")
-        self.lblBonifImporte = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblBonifImporte.setGeometry(QtCore.QRect(880, 610, 111, 31))
+        self.lblSubtotalSelec = QtWidgets.QLabel(self.PaginaInicio)
+        self.lblSubtotalSelec.setGeometry(QtCore.QRect(550, 490, 111, 31))
         font = QtGui.QFont()
         font.setFamily("Century Gothic")
         font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setWeight(50)
-        self.lblBonifImporte.setFont(font)
-        self.lblBonifImporte.setAutoFillBackground(False)
-        self.lblBonifImporte.setStyleSheet("background-color: white;\n"
+        self.lblSubtotalSelec.setFont(font)
+        self.lblSubtotalSelec.setAutoFillBackground(False)
+        self.lblSubtotalSelec.setStyleSheet("background-color: white;\n"
 "color: rgb(0, 0, 0);\n"
 "font: 11pt \"Century Gothic\";\n"
 "border-color: rgb(0, 0, 0);\n"
 "border-radius: 5px;\n"
 "border-width: 2px;\n"
 "border-style: solid;")
-        self.lblBonifImporte.setText("")
-        self.lblBonifImporte.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblBonifImporte.setObjectName("lblBonifImporte")
-        self.lblListaProductos_6 = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblListaProductos_6.setGeometry(QtCore.QRect(760, 650, 171, 21))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(14)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.lblListaProductos_6.setFont(font)
-        self.lblListaProductos_6.setAutoFillBackground(False)
-        self.lblListaProductos_6.setStyleSheet("background-color: transparent;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 14pt \"Century Gothic\";\n"
-"border-color: rgb(0, 0, 0);\n"
-"border-radius: 5px;\n"
-"border-width: 2px;\n"
-"font-color:rgb(0, 0, 0);")
-        self.lblListaProductos_6.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblListaProductos_6.setObjectName("lblListaProductos_6")
-        self.lblTotalImporte = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblTotalImporte.setGeometry(QtCore.QRect(880, 650, 111, 31))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.lblTotalImporte.setFont(font)
-        self.lblTotalImporte.setAutoFillBackground(False)
-        self.lblTotalImporte.setStyleSheet("background-color: white;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 11pt \"Century Gothic\";\n"
-"border-color: rgb(0, 0, 0);\n"
-"border-radius: 5px;\n"
-"border-width: 2px;\n"
-"border-style: solid;")
-        self.lblTotalImporte.setText("")
-        self.lblTotalImporte.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblTotalImporte.setObjectName("lblTotalImporte")
-        self.lblListaNroCompra = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblListaNroCompra.setGeometry(QtCore.QRect(760, 160, 121, 21))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(12)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.lblListaNroCompra.setFont(font)
-        self.lblListaNroCompra.setAutoFillBackground(False)
-        self.lblListaNroCompra.setStyleSheet("background-color: transparent;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 12pt \"Century Gothic\";\n"
-"border-color: rgb(0, 0, 0);\n"
-"border-radius: 5px;\n"
-"border-width: 2px;\n"
-"font-color:rgb(0, 0, 0);")
-        self.lblListaNroCompra.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblListaNroCompra.setObjectName("lblListaNroCompra")
-        self.lblNroCompra_2 = QtWidgets.QLabel(self.PaginaInicio)
-        self.lblNroCompra_2.setGeometry(QtCore.QRect(880, 160, 111, 31))
-        font = QtGui.QFont()
-        font.setFamily("Century Gothic")
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.lblNroCompra_2.setFont(font)
-        self.lblNroCompra_2.setAutoFillBackground(False)
-        self.lblNroCompra_2.setStyleSheet("background-color: white;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 11pt \"Century Gothic\";\n"
-"border-color: rgb(0, 0, 0);\n"
-"border-radius: 5px;\n"
-"border-width: 2px;\n"
-"border-style: solid;")
-        self.lblNroCompra_2.setText("")
-        self.lblNroCompra_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblNroCompra_2.setObjectName("lblNroCompra_2")
+        self.lblSubtotalSelec.setText("")
+        self.lblSubtotalSelec.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblSubtotalSelec.setObjectName("lblSubtotalSelec")
         self.Paginas.addWidget(self.PaginaInicio)
         self.PaginaCuenta = QtWidgets.QWidget()
         self.PaginaCuenta.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(23,166, 255, 255), stop:1 rgba(255, 255, 255, 255));")
         self.PaginaCuenta.setObjectName("PaginaCuenta")
         self.frameCuenta = QtWidgets.QFrame(self.PaginaCuenta)
-        self.frameCuenta.setGeometry(QtCore.QRect(150, 180, 461, 281))
+        self.frameCuenta.setGeometry(QtCore.QRect(150, 180, 401, 291))
         self.frameCuenta.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0.505955, y1:0.324, x2:0.511, y2:1, stop:0 rgba(0, 0, 0, 255), stop:1 rgba(255, 255, 255, 255));\n"
 "border-radius: 10px;\n"
 "")
@@ -665,7 +613,7 @@ class Ui_MainWindow(object):
         self.frameCuenta.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frameCuenta.setObjectName("frameCuenta")
         self.lblUsuario = QtWidgets.QLabel(self.frameCuenta)
-        self.lblUsuario.setGeometry(QtCore.QRect(30, 30, 101, 16))
+        self.lblUsuario.setGeometry(QtCore.QRect(30, 30, 71, 16))
         self.lblUsuario.setStyleSheet("background-color: transparent;\n"
 "color: rgb(255, 255, 255);\n"
 "font: 75 10pt \"Century Gothic\";")
@@ -683,7 +631,7 @@ class Ui_MainWindow(object):
 "font: 75 10pt \"Century Gothic\";")
         self.lblDom.setObjectName("lblDom")
         self.btnCerrarSesion = QtWidgets.QPushButton(self.frameCuenta)
-        self.btnCerrarSesion.setGeometry(QtCore.QRect(180, 220, 101, 31))
+        self.btnCerrarSesion.setGeometry(QtCore.QRect(60, 240, 101, 31))
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -749,7 +697,7 @@ class Ui_MainWindow(object):
         brush.setStyle(QtCore.Qt.NoBrush)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
         self.btnCerrarSesion.setPalette(palette)
-        self.btnCerrarSesion.setStyleSheet("QPushButton {\n"
+        self.btnCerrarSesion.setStyleSheet("QPushButton{\n"
 "    background-color: rgb(0, 85, 255);\n"
 "    color: rgb(255, 255, 255);\n"
 "    font: 75 10pt \"Century Gothic\";\n"
@@ -759,34 +707,123 @@ class Ui_MainWindow(object):
 "}")
         self.btnCerrarSesion.setObjectName("btnCerrarSesion")
         self.lblUsuario_2 = QtWidgets.QLabel(self.frameCuenta)
-        self.lblUsuario_2.setGeometry(QtCore.QRect(150, 30, 291, 20))
+        self.lblUsuario_2.setGeometry(QtCore.QRect(130, 30, 251, 16))
         self.lblUsuario_2.setStyleSheet("background-color: transparent;\n"
 "color:#ffff7f;\n"
 "font: 75 10pt \"Century Gothic\";")
         self.lblUsuario_2.setText("")
         self.lblUsuario_2.setObjectName("lblUsuario_2")
         self.lblEmail_2 = QtWidgets.QLabel(self.frameCuenta)
-        self.lblEmail_2.setGeometry(QtCore.QRect(150, 60, 291, 20))
+        self.lblEmail_2.setGeometry(QtCore.QRect(130, 60, 251, 16))
         self.lblEmail_2.setStyleSheet("background-color: transparent;\n"
 "color:#ffff7f;\n"
 "font: 75 10pt \"Century Gothic\";")
         self.lblEmail_2.setText("")
         self.lblEmail_2.setObjectName("lblEmail_2")
         self.lblDom_2 = QtWidgets.QLabel(self.frameCuenta)
-        self.lblDom_2.setGeometry(QtCore.QRect(150, 90, 291, 20))
+        self.lblDom_2.setGeometry(QtCore.QRect(130, 90, 251, 16))
         self.lblDom_2.setStyleSheet("background-color: transparent;\n"
-"color:#ffff7f;\n"
+"color: #ffff7f;\n"
 "font: 75 10pt \"Century Gothic\";")
         self.lblDom_2.setText("")
         self.lblDom_2.setObjectName("lblDom_2")
-        self.lblLogo_2 = QtWidgets.QLabel(self.PaginaCuenta)
-        self.lblLogo_2.setGeometry(QtCore.QRect(390, -20, 320, 195))
-        self.lblLogo_2.setStyleSheet("background-color: transparent;\n"
+        self.lblBonif = QtWidgets.QLabel(self.frameCuenta)
+        self.lblBonif.setGeometry(QtCore.QRect(30, 120, 141, 16))
+        self.lblBonif.setStyleSheet("background-color: transparent;\n"
+"color: rgb(255, 255, 255);\n"
+"font: 75 10pt \"Century Gothic\";")
+        self.lblBonif.setObjectName("lblBonif")
+        self.lblBonif_2 = QtWidgets.QLabel(self.frameCuenta)
+        self.lblBonif_2.setGeometry(QtCore.QRect(180, 120, 41, 20))
+        self.lblBonif_2.setStyleSheet("background-color: transparent;\n"
+"color: #ffff7f;\n"
+"font: 75 10pt \"Century Gothic\";")
+        self.lblBonif_2.setText("")
+        self.lblBonif_2.setObjectName("lblBonif_2")
+        self.btnCerrarSesion_2 = QtWidgets.QPushButton(self.frameCuenta)
+        self.btnCerrarSesion_2.setGeometry(QtCore.QRect(200, 240, 161, 31))
+        palette = QtGui.QPalette()
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
+        brush.setStyle(QtCore.Qt.NoBrush)
+        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
+        brush.setStyle(QtCore.Qt.NoBrush)
+        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
+        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
+        brush.setStyle(QtCore.Qt.SolidPattern)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
+        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
+        brush.setStyle(QtCore.Qt.NoBrush)
+        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
+        self.btnCerrarSesion_2.setPalette(palette)
+        self.btnCerrarSesion_2.setStyleSheet("QPushButton{\n"
+"    background-color: rgb(0, 85, 255);\n"
+"    color: rgb(255, 255, 255);\n"
+"    font: 75 10pt \"Century Gothic\";\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: #ff0000;\n"
+"}")
+        self.btnCerrarSesion_2.setObjectName("btnCerrarSesion_2")
+        self.label_2 = QtWidgets.QLabel(self.PaginaCuenta)
+        self.label_2.setGeometry(QtCore.QRect(330, -30, 320, 195))
+        self.label_2.setStyleSheet("background-color: transparent;\n"
 "image: url(:/backgraundImages/images/log.png);")
-        self.lblLogo_2.setText("")
-        self.lblLogo_2.setObjectName("lblLogo_2")
+        self.label_2.setText("")
+        self.label_2.setObjectName("label_2")
         self.lblDetalle_2 = QtWidgets.QLabel(self.PaginaCuenta)
-        self.lblDetalle_2.setGeometry(QtCore.QRect(60, 60, 281, 41))
+        self.lblDetalle_2.setGeometry(QtCore.QRect(30, 50, 281, 41))
         self.lblDetalle_2.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
 "background-color: #ff5500;\n"
 "border-radius: 5px;\n"
@@ -797,410 +834,146 @@ class Ui_MainWindow(object):
         self.lblDetalle_2.setWordWrap(False)
         self.lblDetalle_2.setObjectName("lblDetalle_2")
         self.Paginas.addWidget(self.PaginaCuenta)
-        self.PaginaInventario = QtWidgets.QWidget()
-        self.PaginaInventario.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(140,190, 22, 255), stop:1 rgba(255, 255, 255, 255));")
-        self.PaginaInventario.setObjectName("PaginaInventario")
-        self.tablaProductos = QtWidgets.QTableWidget(self.PaginaInventario)
-        self.tablaProductos.setGeometry(QtCore.QRect(40, 170, 391, 431))
-        self.tablaProductos.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"border-radius: 5px;\n"
-"border-width: 1px;\n"
+        self.PaginaComprar = QtWidgets.QWidget()
+        self.PaginaComprar.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(140,190, 22, 255), stop:1 rgba(255, 255, 255, 255));")
+        self.PaginaComprar.setObjectName("PaginaComprar")
+        self.tablaDetalle = QtWidgets.QTableWidget(self.PaginaComprar)
+        self.tablaDetalle.setGeometry(QtCore.QRect(50, 210, 311, 361))
+        self.tablaDetalle.setStyleSheet("background-color: rgb(255, 255, 255);\n"
+"font: 8pt \"MS Shell Dlg 2\";\n"
 "border-color: rgb(0, 0, 0);\n"
+"color: rgb(0, 0, 0);\n"
+"border-radius: 5px;\n"
 "border-style: solid;\n"
-"")
-        self.tablaProductos.setFrameShape(QtWidgets.QFrame.Box)
-        self.tablaProductos.setRowCount(0)
-        self.tablaProductos.setColumnCount(3)
-        self.tablaProductos.setObjectName("tablaProductos")
+"border-width: 1px;")
+        self.tablaDetalle.setFrameShape(QtWidgets.QFrame.Box)
+        self.tablaDetalle.setRowCount(0)
+        self.tablaDetalle.setColumnCount(3)
+        self.tablaDetalle.setObjectName("tablaDetalle")
         item = QtWidgets.QTableWidgetItem()
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        item.setFont(font)
-        self.tablaProductos.setHorizontalHeaderItem(0, item)
+        self.tablaDetalle.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        item.setFont(font)
-        self.tablaProductos.setHorizontalHeaderItem(1, item)
+        self.tablaDetalle.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
-        font = QtGui.QFont()
-        font.setBold(True)
-        font.setWeight(75)
-        item.setFont(font)
-        self.tablaProductos.setHorizontalHeaderItem(2, item)
-        self.lblListaProducto = QtWidgets.QLabel(self.PaginaInventario)
-        self.lblListaProducto.setGeometry(QtCore.QRect(100, 120, 271, 41))
-        self.lblListaProducto.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
+        self.tablaDetalle.setHorizontalHeaderItem(2, item)
+        self.lblDetalle = QtWidgets.QLabel(self.PaginaComprar)
+        self.lblDetalle.setGeometry(QtCore.QRect(60, 160, 271, 41))
+        self.lblDetalle.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
 "background-color: rgb(255, 255, 127);\n"
 "border-radius: 5px;\n"
 "border-width: 5px;")
-        self.lblListaProducto.setTextFormat(QtCore.Qt.AutoText)
-        self.lblListaProducto.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblListaProducto.setWordWrap(False)
-        self.lblListaProducto.setObjectName("lblListaProducto")
-        self.lblLogo = QtWidgets.QLabel(self.PaginaInventario)
-        self.lblLogo.setGeometry(QtCore.QRect(320, -30, 320, 195))
-        self.lblLogo.setStyleSheet("background-color: transparent;\n"
+        self.lblDetalle.setTextFormat(QtCore.Qt.AutoText)
+        self.lblDetalle.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblDetalle.setWordWrap(False)
+        self.lblDetalle.setObjectName("lblDetalle")
+        self.btnCancelar = QtWidgets.QPushButton(self.PaginaComprar)
+        self.btnCancelar.setGeometry(QtCore.QRect(410, 530, 141, 23))
+        self.btnCancelar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnCancelar.setStyleSheet("QPushButton{\n"
+"    background-color: rgb(255, 0, 0);\n"
+"    color: rgb(255, 255, 255);\n"
+"    font: 75 10pt \"Century Gothic\";\n"
+"    border-radius: 5px;\n"
+"}\n"
+"QPushButton:hover{\n"
+"    background-color: #008f00;\n"
+"}")
+        self.btnCancelar.setObjectName("btnCancelar")
+        self.btnConfirmar = QtWidgets.QPushButton(self.PaginaComprar)
+        self.btnConfirmar.setGeometry(QtCore.QRect(410, 490, 141, 23))
+        self.btnConfirmar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.btnConfirmar.setStyleSheet("QPushButton{\n"
+"background-color: rgb(0, 170, 255);\n"
+"color: rgb(255, 255, 255);\n"
+"font: 75 10pt \"Century Gothic\";\n"
+"border-radius: 5px;\n"
+"}\n"
+"QPushButton:hover{ \n"
+"    background-color:#008f00;\n"
+"    \n"
+"}")
+        self.btnConfirmar.setObjectName("btnConfirmar")
+        self.lblSubtotal = QtWidgets.QLabel(self.PaginaComprar)
+        self.lblSubtotal.setGeometry(QtCore.QRect(430, 170, 101, 31))
+        self.lblSubtotal.setStyleSheet("font: 75 14pt \"Century Gothic\";\n"
+"background-color: rgb(255, 255, 127);\n"
+"border-radius: 5px;\n"
+"border-width: 5px;")
+        self.lblSubtotal.setTextFormat(QtCore.Qt.AutoText)
+        self.lblSubtotal.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblSubtotal.setWordWrap(False)
+        self.lblSubtotal.setObjectName("lblSubtotal")
+        self.lblSubtotalImporte = QtWidgets.QLabel(self.PaginaComprar)
+        self.lblSubtotalImporte.setGeometry(QtCore.QRect(400, 220, 161, 31))
+        self.lblSubtotalImporte.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-radius: 5px;\n"
+"border-width: 5px;")
+        self.lblSubtotalImporte.setText("")
+        self.lblSubtotalImporte.setTextFormat(QtCore.Qt.AutoText)
+        self.lblSubtotalImporte.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblSubtotalImporte.setWordWrap(False)
+        self.lblSubtotalImporte.setObjectName("lblSubtotalImporte")
+        self.lblBonificacion = QtWidgets.QLabel(self.PaginaComprar)
+        self.lblBonificacion.setGeometry(QtCore.QRect(380, 270, 201, 31))
+        self.lblBonificacion.setStyleSheet("font: 75 12pt \"Century Gothic\";\n"
+"background-color: rgb(255, 255, 127);\n"
+"border-radius: 5px;\n"
+"border-width: 5px;")
+        self.lblBonificacion.setTextFormat(QtCore.Qt.AutoText)
+        self.lblBonificacion.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblBonificacion.setWordWrap(False)
+        self.lblBonificacion.setObjectName("lblBonificacion")
+        self.lblBonifImporte = QtWidgets.QLabel(self.PaginaComprar)
+        self.lblBonifImporte.setGeometry(QtCore.QRect(400, 320, 161, 31))
+        self.lblBonifImporte.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-radius: 5px;\n"
+"border-width: 5px;")
+        self.lblBonifImporte.setText("")
+        self.lblBonifImporte.setTextFormat(QtCore.Qt.AutoText)
+        self.lblBonifImporte.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblBonifImporte.setWordWrap(False)
+        self.lblBonifImporte.setObjectName("lblBonifImporte")
+        self.lblTotal = QtWidgets.QLabel(self.PaginaComprar)
+        self.lblTotal.setGeometry(QtCore.QRect(400, 380, 161, 31))
+        self.lblTotal.setStyleSheet("font: 75 14pt \"Century Gothic\";\n"
+"background-color: rgb(255, 255, 127);\n"
+"border-radius: 5px;\n"
+"border-width: 5px;")
+        self.lblTotal.setTextFormat(QtCore.Qt.AutoText)
+        self.lblTotal.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblTotal.setWordWrap(False)
+        self.lblTotal.setObjectName("lblTotal")
+        self.lblTotalImporte = QtWidgets.QLabel(self.PaginaComprar)
+        self.lblTotalImporte.setGeometry(QtCore.QRect(400, 420, 161, 31))
+        self.lblTotalImporte.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-radius: 5px;\n"
+"border-width: 5px;")
+        self.lblTotalImporte.setText("")
+        self.lblTotalImporte.setTextFormat(QtCore.Qt.AutoText)
+        self.lblTotalImporte.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblTotalImporte.setWordWrap(False)
+        self.lblTotalImporte.setObjectName("lblTotalImporte")
+        self.label_3 = QtWidgets.QLabel(self.PaginaComprar)
+        self.label_3.setGeometry(QtCore.QRect(330, -30, 320, 195))
+        self.label_3.setStyleSheet("background-color: transparent;\n"
 "image: url(:/backgraundImages/images/log.png);")
-        self.lblLogo.setText("")
-        self.lblLogo.setObjectName("lblLogo")
-        self.lblInventario = QtWidgets.QLabel(self.PaginaInventario)
-        self.lblInventario.setGeometry(QtCore.QRect(50, 50, 161, 41))
-        self.lblInventario.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
+        self.label_3.setText("")
+        self.label_3.setObjectName("label_3")
+        self.lblDetalle_3 = QtWidgets.QLabel(self.PaginaComprar)
+        self.lblDetalle_3.setGeometry(QtCore.QRect(100, 50, 141, 41))
+        self.lblDetalle_3.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
 "background-color: #ff5500;\n"
 "border-radius: 5px;\n"
 "border-width: 5px;\n"
 "color: rgb(255, 255, 255);")
-        self.lblInventario.setTextFormat(QtCore.Qt.AutoText)
-        self.lblInventario.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblInventario.setWordWrap(False)
-        self.lblInventario.setObjectName("lblInventario")
-        self.frameNuevoProd = QtWidgets.QFrame(self.PaginaInventario)
-        self.frameNuevoProd.setGeometry(QtCore.QRect(470, 140, 331, 221))
-        self.frameNuevoProd.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"border-radius: 10px;\n"
-"border-style: solid;\n"
-"border-color: black;\n"
-"border-width: 2px;")
-        self.frameNuevoProd.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frameNuevoProd.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frameNuevoProd.setObjectName("frameNuevoProd")
-        self.lblDescripcion = QtWidgets.QLabel(self.frameNuevoProd)
-        self.lblDescripcion.setGeometry(QtCore.QRect(20, 60, 81, 21))
-        self.lblDescripcion.setStyleSheet("background-color: transparent;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 10pt \"Century Gothic\";\n"
-"border-style: none;")
-        self.lblDescripcion.setObjectName("lblDescripcion")
-        self.lblCantidad = QtWidgets.QLabel(self.frameNuevoProd)
-        self.lblCantidad.setGeometry(QtCore.QRect(30, 90, 71, 21))
-        self.lblCantidad.setStyleSheet("background-color: transparent;color: rgb(0, 0, 0);\n"
-"font: 75 10pt \"Century Gothic\";\n"
-"border-style: none;")
-        self.lblCantidad.setObjectName("lblCantidad")
-        self.lblPrecio = QtWidgets.QLabel(self.frameNuevoProd)
-        self.lblPrecio.setGeometry(QtCore.QRect(50, 120, 51, 21))
-        self.lblPrecio.setStyleSheet("background-color: transparent;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 10pt \"Century Gothic\";\n"
-"border-style: none;")
-        self.lblPrecio.setObjectName("lblPrecio")
-        self.btnAgregar = QtWidgets.QPushButton(self.frameNuevoProd)
-        self.btnAgregar.setGeometry(QtCore.QRect(110, 170, 101, 31))
-        palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(168, 168, 168))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(168, 168, 168))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(168, 168, 168))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
-        self.btnAgregar.setPalette(palette)
-        self.btnAgregar.setStyleSheet("QPushButton {\n"
-"    background-color: rgb(0, 85, 255);\n"
-"    color: rgb(255, 255, 255);\n"
-"    font: 75 10pt \"Century Gothic\";\n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: #00aa00;\n"
-"}\n"
-"QPushButton:disabled{ \n"
-"background-color:#a8a8a8;\n"
-"}")
-        self.btnAgregar.setObjectName("btnAgregar")
-        self.lblNuevoProd = QtWidgets.QLabel(self.frameNuevoProd)
-        self.lblNuevoProd.setGeometry(QtCore.QRect(70, 10, 201, 31))
-        self.lblNuevoProd.setStyleSheet("background-color:#df8535;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Century Gothic\";\n"
-"border-style: none;")
-        self.lblNuevoProd.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblNuevoProd.setObjectName("lblNuevoProd")
-        self.lineEditPrecio = QtWidgets.QLineEdit(self.frameNuevoProd)
-        self.lineEditPrecio.setGeometry(QtCore.QRect(110, 120, 201, 20))
-        self.lineEditPrecio.setStyleSheet("border-radius: none;\n"
-"border-width: 1px;")
-        self.lineEditPrecio.setObjectName("lineEditPrecio")
-        self.lineEditCantidad = QtWidgets.QLineEdit(self.frameNuevoProd)
-        self.lineEditCantidad.setGeometry(QtCore.QRect(110, 90, 201, 20))
-        self.lineEditCantidad.setStyleSheet("border-radius: none;\n"
-"border-width: 1px;")
-        self.lineEditCantidad.setObjectName("lineEditCantidad")
-        self.lineEditDescripcion = QtWidgets.QLineEdit(self.frameNuevoProd)
-        self.lineEditDescripcion.setGeometry(QtCore.QRect(110, 60, 201, 20))
-        self.lineEditDescripcion.setStyleSheet("border-radius: none;\n"
-"border-width: 1px;")
-        self.lineEditDescripcion.setObjectName("lineEditDescripcion")
-        self.frameModificar = QtWidgets.QFrame(self.PaginaInventario)
-        self.frameModificar.setGeometry(QtCore.QRect(470, 380, 331, 221))
-        self.frameModificar.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"border-radius: 10px;\n"
-"border-style: solid;\n"
-"border-color: black;\n"
-"border-width: 2px;")
-        self.frameModificar.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        self.frameModificar.setFrameShadow(QtWidgets.QFrame.Raised)
-        self.frameModificar.setObjectName("frameModificar")
-        self.lblDescripcion_2 = QtWidgets.QLabel(self.frameModificar)
-        self.lblDescripcion_2.setGeometry(QtCore.QRect(20, 60, 81, 21))
-        self.lblDescripcion_2.setStyleSheet("background-color: transparent;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 10pt \"Century Gothic\";\n"
-"border-style: none;")
-        self.lblDescripcion_2.setObjectName("lblDescripcion_2")
-        self.lblCantidad_2 = QtWidgets.QLabel(self.frameModificar)
-        self.lblCantidad_2.setGeometry(QtCore.QRect(30, 90, 71, 21))
-        self.lblCantidad_2.setStyleSheet("background-color: transparent;color: rgb(0, 0, 0);\n"
-"font: 75 10pt \"Century Gothic\";\n"
-"border-style: none;")
-        self.lblCantidad_2.setObjectName("lblCantidad_2")
-        self.lblPrecio_2 = QtWidgets.QLabel(self.frameModificar)
-        self.lblPrecio_2.setGeometry(QtCore.QRect(50, 120, 51, 21))
-        self.lblPrecio_2.setStyleSheet("background-color: transparent;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 10pt \"Century Gothic\";\n"
-"border-style: none;")
-        self.lblPrecio_2.setObjectName("lblPrecio_2")
-        self.btnModificar = QtWidgets.QPushButton(self.frameModificar)
-        self.btnModificar.setGeometry(QtCore.QRect(60, 170, 101, 31))
-        palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(0, 85, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(168, 168, 168))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(168, 168, 168))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(168, 168, 168))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
-        self.btnModificar.setPalette(palette)
-        self.btnModificar.setStyleSheet("QPushButton {\n"
-"    background-color: rgb(0, 85, 255);\n"
-"    color: rgb(255, 255, 255);\n"
-"    font: 75 10pt \"Century Gothic\";\n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: #00aa00;\n"
-"}\n"
-"QPushButton:disabled{ \n"
-"background-color:#a8a8a8;\n"
-"}")
-        self.btnModificar.setObjectName("btnModificar")
-        self.lblModificar = QtWidgets.QLabel(self.frameModificar)
-        self.lblModificar.setGeometry(QtCore.QRect(50, 10, 241, 31))
-        self.lblModificar.setStyleSheet("background-color: #8fcc00;\n"
-"color: rgb(0, 0, 0);\n"
-"font: 75 14pt \"Century Gothic\";\n"
-"border-style: none;")
-        self.lblModificar.setAlignment(QtCore.Qt.AlignCenter)
-        self.lblModificar.setObjectName("lblModificar")
-        self.lineEditPrecio_2 = QtWidgets.QLineEdit(self.frameModificar)
-        self.lineEditPrecio_2.setGeometry(QtCore.QRect(110, 120, 201, 20))
-        self.lineEditPrecio_2.setStyleSheet("border-radius: none;\n"
-"border-width: 1px;")
-        self.lineEditPrecio_2.setObjectName("lineEditPrecio_2")
-        self.lineEditCantidad_2 = QtWidgets.QLineEdit(self.frameModificar)
-        self.lineEditCantidad_2.setGeometry(QtCore.QRect(110, 90, 201, 20))
-        self.lineEditCantidad_2.setStyleSheet("border-radius: none;\n"
-"border-width: 1px;")
-        self.lineEditCantidad_2.setObjectName("lineEditCantidad_2")
-        self.lineEditDescripcion_2 = QtWidgets.QLineEdit(self.frameModificar)
-        self.lineEditDescripcion_2.setGeometry(QtCore.QRect(110, 60, 201, 20))
-        self.lineEditDescripcion_2.setStyleSheet("border-radius: none;\n"
-"border-width: 1px;")
-        self.lineEditDescripcion_2.setObjectName("lineEditDescripcion_2")
-        self.btnEliminar = QtWidgets.QPushButton(self.frameModificar)
-        self.btnEliminar.setGeometry(QtCore.QRect(180, 170, 101, 31))
-        palette = QtGui.QPalette()
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.WindowText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(170, 0, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Button, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.ButtonText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(170, 0, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(170, 0, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.PlaceholderText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.WindowText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(170, 0, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Button, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.ButtonText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(170, 0, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(170, 0, 0))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.PlaceholderText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.WindowText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(168, 168, 168))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Button, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Text, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ButtonText, brush)
-        brush = QtGui.QBrush(QtGui.QColor(168, 168, 168))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(168, 168, 168))
-        brush.setStyle(QtCore.Qt.SolidPattern)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255, 128))
-        brush.setStyle(QtCore.Qt.NoBrush)
-        palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.PlaceholderText, brush)
-        self.btnEliminar.setPalette(palette)
-        self.btnEliminar.setStyleSheet("QPushButton {\n"
-"    background-color: #aa0000;\n"
-"    color: rgb(255, 255, 255);\n"
-"    font: 75 10pt \"Century Gothic\";\n"
-"}\n"
-"QPushButton:hover{\n"
-"    background-color: #00aa00;\n"
-"}\n"
-"QPushButton:disabled{ \n"
-"background-color:#a8a8a8;\n"
-"}")
-        self.btnEliminar.setObjectName("btnEliminar")
-        self.Paginas.addWidget(self.PaginaInventario)
+        self.lblDetalle_3.setTextFormat(QtCore.Qt.AutoText)
+        self.lblDetalle_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblDetalle_3.setWordWrap(False)
+        self.lblDetalle_3.setObjectName("lblDetalle_3")
+        self.Paginas.addWidget(self.PaginaComprar)
         self.verticalLayout_3.addWidget(self.Paginas)
         self.horizontalLayout_2.addWidget(self.MenuDerecho)
         self.verticalLayout.addWidget(self.frame_2)
@@ -1215,51 +988,41 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.InicioButton.setText(_translate("MainWindow", "   Inicio"))
         self.CuentaButton.setText(_translate("MainWindow", "   Cuenta"))
-        self.InventarioButton.setText(_translate("MainWindow", "   Inventario"))
-        item = self.tablaClientes.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "Nombre"))
-        item = self.tablaClientes.horizontalHeaderItem(1)
-        item.setText(_translate("MainWindow", "Domicilio"))
-        item = self.tablaClientes.horizontalHeaderItem(2)
-        item.setText(_translate("MainWindow", "Telefono"))
-        item = self.tablaClientes.horizontalHeaderItem(3)
-        item.setText(_translate("MainWindow", "Nro. Compra"))
-        self.lblListaClientes.setText(_translate("MainWindow", "Lista de Clientes"))
-        self.lblInicio.setText(_translate("MainWindow", "INICIO"))
-        self.lblDetalleCompra.setText(_translate("MainWindow", "Detalle de ultima compra"))
-        item = self.tablaDetalleCompra.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "Descripción"))
-        item = self.tablaDetalleCompra.horizontalHeaderItem(1)
-        item.setText(_translate("MainWindow", "Cantidad"))
-        item = self.tablaDetalleCompra.horizontalHeaderItem(2)
-        item.setText(_translate("MainWindow", "Subtotal"))
-        self.lblListaProductos_3.setText(_translate("MainWindow", "Cantidad Total de Productos:"))
-        self.lblListaProductos_4.setText(_translate("MainWindow", "Subtotal:"))
-        self.lblListaProductos_5.setText(_translate("MainWindow", "Bonificación por Tarjeta:"))
-        self.lblListaProductos_6.setText(_translate("MainWindow", "Total:"))
-        self.lblListaNroCompra.setText(_translate("MainWindow", "Compra Nro.:"))
-        self.lblUsuario.setText(_translate("MainWindow", "Administrador:"))
-        self.lblEmail.setText(_translate("MainWindow", "Email:"))
-        self.lblDom.setText(_translate("MainWindow", "Domicilio:"))
-        self.btnCerrarSesion.setText(_translate("MainWindow", "Cerrar Sesión"))
-        self.lblDetalle_2.setText(_translate("MainWindow", "Detalles de la Cuenta"))
+        self.CompraButton.setText(_translate("MainWindow", "   Comprar"))
         item = self.tablaProductos.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Descripción"))
         item = self.tablaProductos.horizontalHeaderItem(1)
-        item.setText(_translate("MainWindow", "Cantidad"))
-        item = self.tablaProductos.horizontalHeaderItem(2)
         item.setText(_translate("MainWindow", "Precio"))
-        self.lblListaProducto.setText(_translate("MainWindow", "Lista de Productos"))
-        self.lblInventario.setText(_translate("MainWindow", "INVENTARIO"))
-        self.lblDescripcion.setText(_translate("MainWindow", "Descripción:"))
-        self.lblCantidad.setText(_translate("MainWindow", "Cantidad:"))
-        self.lblPrecio.setText(_translate("MainWindow", "Precio:"))
-        self.btnAgregar.setText(_translate("MainWindow", "Agregar"))
-        self.lblNuevoProd.setText(_translate("MainWindow", "NUEVO PRODUCTO"))
-        self.lblDescripcion_2.setText(_translate("MainWindow", "Descripción:"))
-        self.lblCantidad_2.setText(_translate("MainWindow", "Cantidad:"))
-        self.lblPrecio_2.setText(_translate("MainWindow", "Precio:"))
-        self.btnModificar.setText(_translate("MainWindow", "Modificar"))
-        self.lblModificar.setText(_translate("MainWindow", "MODIFICAR PRODUCTO"))
-        self.btnEliminar.setText(_translate("MainWindow", "Eliminar"))
+        self.lblListaProductos.setText(_translate("MainWindow", "Lista de Productos"))
+        self.btnAgregar.setText(_translate("MainWindow", "Agregar al Carrito"))
+        self.lblDetalle_4.setText(_translate("MainWindow", "INICIO"))
+        item = self.tablaSeleccion.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "Descripción"))
+        item = self.tablaSeleccion.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Cantidad"))
+        item = self.tablaSeleccion.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Subtotal"))
+        self.lblListaProductos_2.setText(_translate("MainWindow", "Productos Seleccionados"))
+        self.lblListaProductos_3.setText(_translate("MainWindow", "Cantidad Total de Productos:"))
+        self.lblListaProductos_5.setText(_translate("MainWindow", "Subtotal de la Selección:"))
+        self.lblUsuario.setText(_translate("MainWindow", "Usuario:"))
+        self.lblEmail.setText(_translate("MainWindow", "Email:"))
+        self.lblDom.setText(_translate("MainWindow", "Domicilio:"))
+        self.btnCerrarSesion.setText(_translate("MainWindow", "Cerrar Sesión"))
+        self.lblBonif.setText(_translate("MainWindow", "Tarjeta de Beneficios:"))
+        self.btnCerrarSesion_2.setText(_translate("MainWindow", "Historial de Compras"))
+        self.lblDetalle_2.setText(_translate("MainWindow", "Detalles de la Cuenta"))
+        item = self.tablaDetalle.horizontalHeaderItem(0)
+        item.setText(_translate("MainWindow", "Descripción"))
+        item = self.tablaDetalle.horizontalHeaderItem(1)
+        item.setText(_translate("MainWindow", "Cantidad"))
+        item = self.tablaDetalle.horizontalHeaderItem(2)
+        item.setText(_translate("MainWindow", "Subtotal"))
+        self.lblDetalle.setText(_translate("MainWindow", "Detalle del Carrito"))
+        self.btnCancelar.setText(_translate("MainWindow", "Cancelar Compra"))
+        self.btnConfirmar.setText(_translate("MainWindow", "Confirmar Compra"))
+        self.lblSubtotal.setText(_translate("MainWindow", "Subtotal"))
+        self.lblBonificacion.setText(_translate("MainWindow", "Bonificación por Tarjeta"))
+        self.lblTotal.setText(_translate("MainWindow", "Total a Pagar"))
+        self.lblDetalle_3.setText(_translate("MainWindow", "COMPRAS"))
 import archivos_rc

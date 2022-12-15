@@ -31,7 +31,7 @@ class AdminView(QtWidgets.QMainWindow):
             self.animacion.setEasingCurve(QEasingCurve.InOutCirc)
             self.animacion.start()
         except:
-            self.ui.MenuButton.setIcon(QtGui.QIcon("interfaces/ui/icons/bars.png"))
+            self.ui.MenuButton.setIcon(QtGui.QIcon("interfaces/icons/bars.png"))
             self.animacion.setStartValue(50)
             self.animacion.setEndValue(50)
             self.animacion.setDuration(350)
@@ -188,13 +188,13 @@ class AdminView(QtWidgets.QMainWindow):
         self.ui.btnEliminar.setDisabled(False)
         self.ui.btnModificar.setDisabled(False)
 
+    
     def __funcionAlClickearCeldasTablaClientes(self):
         #Conectar con la base de datos
         nombre = self.ui.tablaProductos.selectedIndexes()[0].data()
         #self._cargarDetalleDeCompra(nombre,bd)
         self.ui.lblNroCompra_2.setText(self.ui.tablaProductos.selectedIndexes()[4].data())
 
-        
 
     def __cargarDetalleDeCompra(self,nombre,db):
         #buscar nombre en db
@@ -207,7 +207,7 @@ class AdminView(QtWidgets.QMainWindow):
         #     self.ui.tablaDetalleCompra.setItem(rowDet, 1, QtWidgets.QTableWidgetItem(str(row[1])))
         #     self.ui.tablaDetalleCompra.setItem(rowDet, 2, QtWidgets.QTableWidgetItem(str(row[2])))
         pass
-
+    
     def vistaAdminfunction(self):
        pass
 

@@ -3,13 +3,16 @@ from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtCore import QPropertyAnimation , QEasingCurve , Qt
 from ClientView import Ui_MainWindow
 from PopUp import Dialogo
+from HistorialCompras import HistorialCompras
 
 class ClientView(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ventanaHistorial = HistorialCompras()
         self.__limites = None
+        self.__oldValues = []
         self.setupUiComponents()
         self.popUp = Dialogo()
         #self.db = db conectar con la base de datos
@@ -22,6 +25,8 @@ class ClientView(QtWidgets.QMainWindow):
     @limites.setter
     def limites(self,lim):
         self.__limites = lim
+
+    
 
     def expandir(self):
         ancho = self.ui.MenuIzquierdo.width()
@@ -57,8 +62,11 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.tablaProductos.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.ui.tablaSeleccion.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.ui.tablaDetalle.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-        self.ui.lblSubtotalImporte.setText(str(0))
-        self.ui.lblCantTotalProdSelec.setText(str(0))
+        self.ui.lblSubtotalSelec.setText("0")
+        self.ui.lblSubtotalImporte.setText("0")
+        self.ui.lblCantTotalProdSelec.setText("0")
+        self.ui.lblBonifImporte.setText("0")
+        self.ui.lblTotalImporte.setText("0")
         self.ui.tablaProductos.setColumnWidth(0,190)
         self.ui.tablaProductos.setColumnWidth(1,55)
         self.ui.tablaSeleccion.setColumnWidth(0,195)
@@ -80,6 +88,7 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.CuentaButton.clicked.connect(self.__accionBtnCuenta)
         self.ui.CompraButton.clicked.connect(self.__accionBtnCompra)
         self.ui.btnCerrarSesion.clicked.connect(self.__accionBtnCerrarSesion)
+        self.ui.btnHistorial.clicked.connect(self.__accionBtnHistorial)
         self.ui.btnAgregar.clicked.connect(self.__accionBtnAgregarAlCarrito)
         self.ui.btnCancelar.clicked.connect(self.__accionBtnCancelarCompra)
         self.ui.btnConfirmar.clicked.connect(self.__accionBtnConfirmarCompra)
@@ -164,11 +173,13 @@ class ClientView(QtWidgets.QMainWindow):
                 maxim = min(int(self.limites[desc]),30) #Determina el máximo stock disponible para comprar
                 #agrega una columna con QSpinBox
                 self.ui.tablaSeleccion.setCellWidget(row,1,QtWidgets.QSpinBox(minimum=0,maximum=maxim))
-                self.ui.tablaSeleccion.setItem(row,2,QtWidgets.QTableWidgetItem(str(0)))       
-                self.ui.tablaSeleccion.cellWidget(row,1).valueChanged.connect(lambda: self.__funcionSpinBox(precio,row))
+                self.ui.tablaSeleccion.cellWidget(row,1).lineEdit().setReadOnly(True)
+                self.ui.tablaSeleccion.setItem(row,2,QtWidgets.QTableWidgetItem(str(0))) 
+                self.__oldValues.append(0)
+                self.ui.tablaSeleccion.cellWidget(row,1).valueChanged.connect(lambda: self.__funcionSpinBox(precio,row,self.__oldValues))
         else:
-             self.popUp.abrirDialogo("No se pueden seleccionar más productos!")
-
+            self.popUp.abrirDialogo("No se pueden seleccionar más productos!")
+            
     def __productoAgregado(self,tabla=QtWidgets.QTableWidget,prod=str):
         if tabla.rowCount()!=0:
             productos=[]
@@ -178,27 +189,70 @@ class ClientView(QtWidgets.QMainWindow):
         else:
             value = False
         return value
-
-    def __funcionSpinBox(self,precio,row):
-        if int(self.ui.lblCantTotalProdSelec.text()) < 30:
-            sub = int(precio)*self.ui.tablaSeleccion.cellWidget(row,1).value()
-            self.ui.tablaSeleccion.setItem(row,2,QtWidgets.QTableWidgetItem(str(sub)))
-            suma = 0; cant = 0
-            for i in range(row+1):
-                cant = cant + self.ui.tablaSeleccion.cellWidget(i,1).value()
-                suma = suma + float(self.ui.tablaSeleccion.item(i,2).text())
-            self.ui.lblCantTotalProdSelec.setText(str(cant))
-            self.ui.lblSubtotalSelec.setText(str(suma))
-            if int(self.ui.lblCantTotalProdSelec.text())!=0:
-                self.ui.btnAgregar.setDisabled(False)
+  
+    def __funcionSpinBox(self,precio,row,oldValue):
+        totalCant = int(self.ui.lblCantTotalProdSelec.text())
+        subtotal = float(self.ui.lblSubtotalSelec.text())
+        newValue = self.ui.tablaSeleccion.cellWidget(row,1).value()
+        if oldValue[row] < newValue: #se incrementó la cantidad (el valor del spinBox)
+            if totalCant < 30:
+                sub = int(precio)*newValue
+                self.ui.tablaSeleccion.setItem(row,2,QtWidgets.QTableWidgetItem(str(sub)))
+                cant = totalCant + 1
+                suma = subtotal + float(precio)
+                self.ui.lblCantTotalProdSelec.setText(str(cant))
+                self.ui.lblSubtotalSelec.setText(str(suma))
             else:
-                self.ui.btnAgregar.setDisabled(True)
+                self.popUp.abrirDialogo("No se pueden seleccionar más productos!")
+                newValue = newValue - 1
+                self.ui.tablaSeleccion.cellWidget(row,1).stepDown()
         else:
-             self.popUp.abrirDialogo("No se pueden seleccionar más productos!")
+            if newValue != oldValue[row]:
+                sub = int(precio)*newValue
+                self.ui.tablaSeleccion.setItem(row,2,QtWidgets.QTableWidgetItem(str(sub)))
+                cant = totalCant - 1
+                suma = subtotal - float(precio)
+                self.ui.lblCantTotalProdSelec.setText(str(cant))
+                self.ui.lblSubtotalSelec.setText(str(suma))
+        oldValue[row] = newValue
+        if int(self.ui.lblCantTotalProdSelec.text())!=0:
+                self.ui.btnAgregar.setDisabled(False)
+        else:
+            self.ui.btnAgregar.setDisabled(True)
 
-    def __haySuficienteStock(self,row,valor):
-        prod = self.ui.tablaSeleccion.item(row,0).text()
-        return self.limites[prod] >= valor
+
+
+
+
+        # if totalCant < 30 or oldValue[row] > newValue:
+        #     sub = int(precio)*newValue
+        #     self.ui.tablaSeleccion.setItem(row,2,QtWidgets.QTableWidgetItem(str(sub)))
+        #     if oldValue[row] < newValue:
+        #         cant = totalCant + 1
+        #         suma = subtotal + float(precio)
+        #     else:
+        #         cant = totalCant - 1
+        #         suma = subtotal - float(precio)
+        #     #cant = totalCant + self.ui.tablaSeleccion.cellWidget(i,1).value()
+        #     #suma = subtotal + float(self.ui.tablaSeleccion.item(row,2).text())
+           
+        #     if totalCant < 30 or totalCant > 30 and oldValue[row] > newValue:
+        #         self.ui.lblCantTotalProdSelec.setText(str(cant))
+        #         self.ui.lblSubtotalSelec.setText(str(suma))
+
+        #     if int(self.ui.lblCantTotalProdSelec.text())!=0:
+        #         self.ui.btnAgregar.setDisabled(False)
+        #     else:
+        #         self.ui.btnAgregar.setDisabled(True)
+        # else:
+        #     self.popUp.abrirDialogo("No se pueden seleccionar más productos!")
+        #     if int(self.ui.lblCantTotalProdSelec.text()) > 30 and oldValue[row] < newValue:
+        #         self.ui.tablaSeleccion.cellWidget(row,1).stepDown()
+        #         newValue = newValue - 1
+        # oldValue[row] = newValue            
+
+    def __isStepUpPressed(oldValue,newValue):
+        return oldValue < newValue
 
 
     def __accionBtnAgregarAlCarrito(self):
@@ -209,7 +263,7 @@ class ClientView(QtWidgets.QMainWindow):
             self.__limpiarFormularioInicio()
             self.ui.btnConfirmar.setDisabled(False)
             self.ui.btnCancelar.setDisabled(False)
-
+            self.__oldValues = []
         # if self.ui.tablaSeleccion.rowCount()!=0:
         #     suma = 0; bonif = 0
         #     for row in range(0,self.ui.tablaSeleccion.rowCount()):
@@ -313,7 +367,9 @@ class ClientView(QtWidgets.QMainWindow):
         self.popUp.abrirDialogo("Se ha confirmado la compra!")    
         self.__limpiarFormularioCompras()
     
-
+    def __accionBtnHistorial(self):
+       self.ventanaHistorial.cargarHistorial("pasar la base de datos")
+       self.ventanaHistorial.show()
     
     def __limpiarFormularioInicio(self):
         self.__eliminarFilas(self.ui.tablaSeleccion)
