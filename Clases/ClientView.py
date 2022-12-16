@@ -871,7 +871,7 @@ class Ui_MainWindow(object):
         self.lblDetalle.setWordWrap(False)
         self.lblDetalle.setObjectName("lblDetalle")
         self.btnCancelar = QtWidgets.QPushButton(self.PaginaComprar)
-        self.btnCancelar.setGeometry(QtCore.QRect(410, 530, 141, 23))
+        self.btnCancelar.setGeometry(QtCore.QRect(420, 550, 141, 23))
         self.btnCancelar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnCancelar.setStyleSheet("QPushButton{\n"
 "    background-color: rgb(255, 0, 0);\n"
@@ -887,7 +887,7 @@ class Ui_MainWindow(object):
 "}")
         self.btnCancelar.setObjectName("btnCancelar")
         self.btnConfirmar = QtWidgets.QPushButton(self.PaginaComprar)
-        self.btnConfirmar.setGeometry(QtCore.QRect(410, 490, 141, 23))
+        self.btnConfirmar.setGeometry(QtCore.QRect(420, 510, 141, 23))
         self.btnConfirmar.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.btnConfirmar.setStyleSheet("QPushButton{\n"
 "background-color: rgb(0, 170, 255);\n"
@@ -904,7 +904,7 @@ class Ui_MainWindow(object):
 "}")
         self.btnConfirmar.setObjectName("btnConfirmar")
         self.lblSubtotal = QtWidgets.QLabel(self.PaginaComprar)
-        self.lblSubtotal.setGeometry(QtCore.QRect(430, 170, 101, 31))
+        self.lblSubtotal.setGeometry(QtCore.QRect(440, 240, 101, 31))
         self.lblSubtotal.setStyleSheet("font: 75 14pt \"Century Gothic\";\n"
 "background-color: rgb(255, 255, 127);\n"
 "border-radius: 5px;\n"
@@ -914,7 +914,7 @@ class Ui_MainWindow(object):
         self.lblSubtotal.setWordWrap(False)
         self.lblSubtotal.setObjectName("lblSubtotal")
         self.lblSubtotalImporte = QtWidgets.QLabel(self.PaginaComprar)
-        self.lblSubtotalImporte.setGeometry(QtCore.QRect(400, 220, 161, 31))
+        self.lblSubtotalImporte.setGeometry(QtCore.QRect(410, 280, 161, 31))
         self.lblSubtotalImporte.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
 "background-color: rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
@@ -925,7 +925,7 @@ class Ui_MainWindow(object):
         self.lblSubtotalImporte.setWordWrap(False)
         self.lblSubtotalImporte.setObjectName("lblSubtotalImporte")
         self.lblBonificacion = QtWidgets.QLabel(self.PaginaComprar)
-        self.lblBonificacion.setGeometry(QtCore.QRect(380, 270, 201, 31))
+        self.lblBonificacion.setGeometry(QtCore.QRect(390, 330, 201, 31))
         self.lblBonificacion.setStyleSheet("font: 75 12pt \"Century Gothic\";\n"
 "background-color: rgb(255, 255, 127);\n"
 "border-radius: 5px;\n"
@@ -935,7 +935,7 @@ class Ui_MainWindow(object):
         self.lblBonificacion.setWordWrap(False)
         self.lblBonificacion.setObjectName("lblBonificacion")
         self.lblBonifImporte = QtWidgets.QLabel(self.PaginaComprar)
-        self.lblBonifImporte.setGeometry(QtCore.QRect(400, 320, 161, 31))
+        self.lblBonifImporte.setGeometry(QtCore.QRect(410, 370, 161, 31))
         self.lblBonifImporte.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
 "background-color: rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
@@ -946,7 +946,7 @@ class Ui_MainWindow(object):
         self.lblBonifImporte.setWordWrap(False)
         self.lblBonifImporte.setObjectName("lblBonifImporte")
         self.lblTotal = QtWidgets.QLabel(self.PaginaComprar)
-        self.lblTotal.setGeometry(QtCore.QRect(400, 380, 161, 31))
+        self.lblTotal.setGeometry(QtCore.QRect(410, 420, 161, 31))
         self.lblTotal.setStyleSheet("font: 75 14pt \"Century Gothic\";\n"
 "background-color: rgb(255, 255, 127);\n"
 "border-radius: 5px;\n"
@@ -956,7 +956,7 @@ class Ui_MainWindow(object):
         self.lblTotal.setWordWrap(False)
         self.lblTotal.setObjectName("lblTotal")
         self.lblTotalImporte = QtWidgets.QLabel(self.PaginaComprar)
-        self.lblTotalImporte.setGeometry(QtCore.QRect(400, 420, 161, 31))
+        self.lblTotalImporte.setGeometry(QtCore.QRect(410, 460, 161, 31))
         self.lblTotalImporte.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
 "background-color: rgb(255, 255, 255);\n"
 "border-radius: 5px;\n"
@@ -983,6 +983,27 @@ class Ui_MainWindow(object):
         self.lblDetalle_3.setAlignment(QtCore.Qt.AlignCenter)
         self.lblDetalle_3.setWordWrap(False)
         self.lblDetalle_3.setObjectName("lblDetalle_3")
+        self.lblCantidadProductos_2 = QtWidgets.QLabel(self.PaginaComprar)
+        self.lblCantidadProductos_2.setGeometry(QtCore.QRect(410, 200, 161, 31))
+        self.lblCantidadProductos_2.setStyleSheet("font: 75 18pt \"Century Gothic\";\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-radius: 5px;\n"
+"border-width: 5px;")
+        self.lblCantidadProductos_2.setText("")
+        self.lblCantidadProductos_2.setTextFormat(QtCore.Qt.AutoText)
+        self.lblCantidadProductos_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblCantidadProductos_2.setWordWrap(False)
+        self.lblCantidadProductos_2.setObjectName("lblCantidadProductos_2")
+        self.lblCantidadProductos = QtWidgets.QLabel(self.PaginaComprar)
+        self.lblCantidadProductos.setGeometry(QtCore.QRect(370, 160, 231, 31))
+        self.lblCantidadProductos.setStyleSheet("font: 75 14pt \"Century Gothic\";\n"
+"background-color: rgb(255, 255, 127);\n"
+"border-radius: 5px;\n"
+"border-width: 5px;")
+        self.lblCantidadProductos.setTextFormat(QtCore.Qt.AutoText)
+        self.lblCantidadProductos.setAlignment(QtCore.Qt.AlignCenter)
+        self.lblCantidadProductos.setWordWrap(False)
+        self.lblCantidadProductos.setObjectName("lblCantidadProductos")
         self.Paginas.addWidget(self.PaginaComprar)
         self.verticalLayout_3.addWidget(self.Paginas)
         self.horizontalLayout_2.addWidget(self.MenuDerecho)
@@ -1035,4 +1056,5 @@ class Ui_MainWindow(object):
         self.lblBonificacion.setText(_translate("MainWindow", "Bonificación por Tarjeta"))
         self.lblTotal.setText(_translate("MainWindow", "Total a Pagar"))
         self.lblDetalle_3.setText(_translate("MainWindow", "COMPRAS"))
+        self.lblCantidadProductos.setText(_translate("MainWindow", "Cantidad de Productos"))
 import archivos_rc

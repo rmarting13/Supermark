@@ -2199,8 +2199,8 @@ border-width: 5px;</string>
                 <widget class="QPushButton" name="btnCancelar">
                  <property name="geometry">
                   <rect>
-                   <x>410</x>
-                   <y>530</y>
+                   <x>420</x>
+                   <y>550</y>
                    <width>141</width>
                    <height>23</height>
                   </rect>
@@ -2226,8 +2226,8 @@ QPushButton:hover{
                 <widget class="QPushButton" name="btnConfirmar">
                  <property name="geometry">
                   <rect>
-                   <x>410</x>
-                   <y>490</y>
+                   <x>420</x>
+                   <y>510</y>
                    <width>141</width>
                    <height>23</height>
                   </rect>
@@ -2254,8 +2254,8 @@ QPushButton:hover{
                 <widget class="QLabel" name="lblSubtotal">
                  <property name="geometry">
                   <rect>
-                   <x>430</x>
-                   <y>170</y>
+                   <x>440</x>
+                   <y>240</y>
                    <width>101</width>
                    <height>31</height>
                   </rect>
@@ -2282,8 +2282,8 @@ border-width: 5px;</string>
                 <widget class="QLabel" name="lblSubtotalImporte">
                  <property name="geometry">
                   <rect>
-                   <x>400</x>
-                   <y>220</y>
+                   <x>410</x>
+                   <y>280</y>
                    <width>161</width>
                    <height>31</height>
                   </rect>
@@ -2310,8 +2310,8 @@ border-width: 5px;</string>
                 <widget class="QLabel" name="lblBonificacion">
                  <property name="geometry">
                   <rect>
-                   <x>380</x>
-                   <y>270</y>
+                   <x>390</x>
+                   <y>330</y>
                    <width>201</width>
                    <height>31</height>
                   </rect>
@@ -2338,8 +2338,8 @@ border-width: 5px;</string>
                 <widget class="QLabel" name="lblBonifImporte">
                  <property name="geometry">
                   <rect>
-                   <x>400</x>
-                   <y>320</y>
+                   <x>410</x>
+                   <y>370</y>
                    <width>161</width>
                    <height>31</height>
                   </rect>
@@ -2366,8 +2366,8 @@ border-width: 5px;</string>
                 <widget class="QLabel" name="lblTotal">
                  <property name="geometry">
                   <rect>
-                   <x>400</x>
-                   <y>380</y>
+                   <x>410</x>
+                   <y>420</y>
                    <width>161</width>
                    <height>31</height>
                   </rect>
@@ -2394,8 +2394,8 @@ border-width: 5px;</string>
                 <widget class="QLabel" name="lblTotalImporte">
                  <property name="geometry">
                   <rect>
-                   <x>400</x>
-                   <y>420</y>
+                   <x>410</x>
+                   <y>460</y>
                    <width>161</width>
                    <height>31</height>
                   </rect>
@@ -2454,6 +2454,62 @@ color: rgb(255, 255, 255);</string>
                  </property>
                  <property name="text">
                   <string>COMPRAS</string>
+                 </property>
+                 <property name="textFormat">
+                  <enum>Qt::AutoText</enum>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="lblCantidadProductos__2">
+                 <property name="geometry">
+                  <rect>
+                   <x>410</x>
+                   <y>200</y>
+                   <width>161</width>
+                   <height>31</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font: 75 18pt &quot;Century Gothic&quot;;
+background-color: rgb(255, 255, 255);
+border-radius: 5px;
+border-width: 5px;</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="textFormat">
+                  <enum>Qt::AutoText</enum>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+                <widget class="QLabel" name="lblCantidadProductos">
+                 <property name="geometry">
+                  <rect>
+                   <x>370</x>
+                   <y>160</y>
+                   <width>231</width>
+                   <height>31</height>
+                  </rect>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">font: 75 14pt &quot;Century Gothic&quot;;
+background-color: rgb(255, 255, 127);
+border-radius: 5px;
+border-width: 5px;</string>
+                 </property>
+                 <property name="text">
+                  <string>Cantidad de Productos</string>
                  </property>
                  <property name="textFormat">
                   <enum>Qt::AutoText</enum>

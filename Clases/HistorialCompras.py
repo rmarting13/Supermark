@@ -24,7 +24,7 @@ class HistorialCompras(QtWidgets.QMainWindow):
     def cargarHistorial(self,db):
         #para cada registro de compras en la db
         compras = db
-        self.ui.comboBox.addItems(compras)
+        self.ui.cdItomboBox.adems(compras)
 
     
     def cargarRegistro(self,orden,db):
