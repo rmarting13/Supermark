@@ -235,10 +235,11 @@ class AdminView(QtWidgets.QMainWindow):
 
     def __funcionAlClickearCeldasTablaClientes(self):
         #Conectar con la base de datos
-        #nombre = self.ui.tablaClientes.selectedIndexes()[0].data()
-        #self._cargarDetalleDeCompra(nombre,bd)
-        #self.ui.lblNroCompra_2.setText(self.ui.tablaClientes.selectedIndexes()[0].data())
-        pass
+        nombre = self.ui.tablaClientes.selectedIndexes()[0].data()
+        print(nombre)
+        self.__cargarDetalleDeCompra(nombre)
+        self.ui.lblNroCompra_2.setText(self.ui.tablaClientes.selectedIndexes()[0].data())
+       
         
     def __cargarUsuariosDB(self):
 
@@ -260,17 +261,20 @@ class AdminView(QtWidgets.QMainWindow):
            self.ui.tablaClientes.setItem(row, 3, QtWidgets.QTableWidgetItem(str(nroCompra)))
            row+=1
     
-    #def __cargarDetalleDeCompra(self,nombre,db):
+    def __cargarDetalleDeCompra(self,nombre):
+     
         #buscar nombre en db
         # row es la lista de datos de la tabla compra de un cliente de la base de datos (db)
-        #lista = guardar la tabla del detalle de compra del cliente
-        # for row in lista:
+        
+        #lista=2
+        #guardar la tabla del detalle de compra del cliente
+        #for row in lista:
         #     rowDet = self.ui.tablaDetalle.rowCount()
         #     self.ui.tablaDetalleCompra.insertRow(rowDet)
         #     self.ui.tablaDetalleCompra.setItem(rowDet, 0, QtWidgets.QTableWidgetItem(str(row[0])))
         #     self.ui.tablaDetalleCompra.setItem(rowDet, 1, QtWidgets.QTableWidgetItem(str(row[1])))
         #     self.ui.tablaDetalleCompra.setItem(rowDet, 2, QtWidgets.QTableWidgetItem(str(row[2])))
-     #   pass
+        pass
 
 
        

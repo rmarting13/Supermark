@@ -7,12 +7,15 @@ import usuarios
 from HistorialCompras import HistorialCompras
 import productos
 import nro_compra
-
+import Ventas_produc
 class ClientView(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.id= " "
         self.iduser=None
+        self.importetotal=" "
+        self.cantidad=None
+        self.listaProduc=[]
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.ventanaHistorial = HistorialCompras()
@@ -93,7 +96,7 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.InicioButton.clicked.connect(self.__accionBtnInicio)
         self.ui.CuentaButton.clicked.connect(self.__accionBtnCuenta)
         self.ui.CompraButton.clicked.connect(self.__accionBtnCompra)
-        self.ui.btnCerrarSesion.clicked.connect(self.__accionBtnCerrarSesion)
+        #self.ui.btnCerrarSesion.clicked.connect(self.__accionBtnCerrarSesion)
         self.ui.btnHistorial.clicked.connect(self.__accionBtnHistorial)
         self.ui.btnAgregar.clicked.connect(self.__accionBtnAgregarAlCarrito)
         self.ui.btnCancelar.clicked.connect(self.__accionBtnCancelarCompra)
@@ -120,9 +123,9 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.InicioButton.setStyleSheet(self.ui.InicioButton.styleSheet().replace("#ffdd52","transparent"))
         self.ui.CuentaButton.setStyleSheet(self.ui.CuentaButton.styleSheet().replace("#1aa7ff","transparent"))
 
-    def __accionBtnCerrarSesion(self):
+    #def __accionBtnCerrarSesion(self):
         #llamar al método que inicia la ui de registro
-        self.close()
+    #    self.close()
 
     def datos(self,id):
         self.__cargarDatosCuenta(id)
@@ -243,6 +246,7 @@ class ClientView(QtWidgets.QMainWindow):
             cant1 = int(self.ui.lblCantTotalProdSelec.text())
             cant2 = int(self.ui.lblCantidadProductos_2.text())
             self.ui.lblCantidadProductos_2.setText(str(cant1+cant2))
+            self.cantidad=self.ui.lblCantidadProductos_2.setText(str(cant1+cant2))
 
             self.popUp.abrirDialogo("Productos agregados con éxito!")
             self.__limpiarFormularioInicio()
@@ -285,7 +289,8 @@ class ClientView(QtWidgets.QMainWindow):
                bonif = float(self.ui.lblSubtotalImporte.text())*0.10
             self.ui.lblBonifImporte.setText(str(bonif))
             self.ui.lblTotalImporte.setText(str(float(self.ui.lblSubtotalImporte.text())-bonif))
-
+            self.importetotal=self.ui.lblTotalImporte.text()
+   
     def __generarListaDeTuplas(self,tabla=QtWidgets.QTableWidget):
     #Retorna los elementos de una tabla en formato de lista de tuplas, donde cada tupla de la lista
     #es una fila, y cada elemento de la tupla (fila) es una columna
@@ -318,6 +323,7 @@ class ClientView(QtWidgets.QMainWindow):
         row=self.ui.tablaDetalle.rowCount()
         for i in range(row):
           nombreP=productosL[i][0].text()#nombre
+          self.listaProduc.append(nombreP)
           cantidadP=productosL[i][1].text()#cantidad
           productos.Producto.actualizar_producto_comprado(nombreP,cantidadP)
 
@@ -327,18 +333,19 @@ class ClientView(QtWidgets.QMainWindow):
 
     def actualizarNroDeCompra(self):
         from datetime import date
-        
-        
-        
         fechA=date.today()
         idU=self.iduser
         print(fechA)
         print(idU)
         venta1=nro_compra.Ventas(fechA,idU)
-
-        #print(venta1)
-        
-
+        print(venta1)
+        Ncompra=nro_compra.Ventas.retornarNroCompra(idU)
+        print(Ncompra)
+        print(self.listaProduc)
+        #venta1.retornarNroCompra()
+        venta1=Ventas_produc.ventas_produc(self.importetotal,self.listaProduc,Ncompra[0][0])
+        print(venta1)
+        print(self.importetotal)
     def __accionBtnHistorial(self):
 
        self.ventanaHistorial.cargarHistorial("pasar la base de datos")
