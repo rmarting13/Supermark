@@ -7,6 +7,7 @@ from PopUp import Dialogo
 import usuarios
 import productos
 import nro_compra
+import Ventas_produc
 class AdminView(QtWidgets.QMainWindow):
     def __init__(self):
        
@@ -235,9 +236,13 @@ class AdminView(QtWidgets.QMainWindow):
 
     def __funcionAlClickearCeldasTablaClientes(self):
         #Conectar con la base de datos
-        nombre = self.ui.tablaClientes.selectedIndexes()[0].data()
-        print(nombre)
-        self.__cargarDetalleDeCompra(nombre)
+        
+        nroCompra = self.ui.tablaClientes.selectedIndexes()[0].data()
+        #suponemos que apretamos en nroCompra
+        """"a corregiiir"""
+        print(nroCompra[0][0])
+
+        self.__cargarDetalleDeCompra(nroCompra)
         self.ui.lblNroCompra_2.setText(self.ui.tablaClientes.selectedIndexes()[0].data())
        
         
@@ -261,20 +266,21 @@ class AdminView(QtWidgets.QMainWindow):
            self.ui.tablaClientes.setItem(row, 3, QtWidgets.QTableWidgetItem(str(nroCompra)))
            row+=1
     
-    def __cargarDetalleDeCompra(self,nombre):
+    def __cargarDetalleDeCompra(self,nroCompra):
      
-        #buscar nombre en db
+        #buscar nroCompra en db
         # row es la lista de datos de la tabla compra de un cliente de la base de datos (db)
-        
-        #lista=2
+        #lista=[("manzana",300,1200)]
+        lista=Ventas_produc.ventas_produc.consultar_compra_porNro(str(nroCompra))
+        print(lista)
         #guardar la tabla del detalle de compra del cliente
-        #for row in lista:
-        #     rowDet = self.ui.tablaDetalle.rowCount()
-        #     self.ui.tablaDetalleCompra.insertRow(rowDet)
-        #     self.ui.tablaDetalleCompra.setItem(rowDet, 0, QtWidgets.QTableWidgetItem(str(row[0])))
-        #     self.ui.tablaDetalleCompra.setItem(rowDet, 1, QtWidgets.QTableWidgetItem(str(row[1])))
-        #     self.ui.tablaDetalleCompra.setItem(rowDet, 2, QtWidgets.QTableWidgetItem(str(row[2])))
-        pass
+        for row in lista:
+            rowDet = self.ui.tablaDetalleCompra.rowCount()
+            self.ui.tablaDetalleCompra.insertRow(rowDet)
+            self.ui.tablaDetalleCompra.setItem(rowDet, 0, QtWidgets.QTableWidgetItem(str(row[0])))
+            self.ui.tablaDetalleCompra.setItem(rowDet, 1, QtWidgets.QTableWidgetItem(str(row[1])))
+            self.ui.tablaDetalleCompra.setItem(rowDet, 2, QtWidgets.QTableWidgetItem(str(row[2])))
+       
 
 
        

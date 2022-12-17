@@ -1,3 +1,4 @@
+import bd_ventas_produc
 class ventas_produc:
     def __init__(self,precio,idproductos, idventa):
         #self.__idventP = idventP
@@ -10,3 +11,5 @@ class ventas_produc:
         idproductos = {self.__idproductos}
         idventa={self.__idventa}
         """
+    def consultar_compra_porNro(nroCompra):
+        return bd_ventas_produc.extraer_compra(nroCompra)
