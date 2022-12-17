@@ -14,26 +14,36 @@ class Login(QtWidgets.QMainWindow):
         self.setupUiComponents()
         
     def setupUiComponents(self):
-        self.pushButton.clicked.connect(self.loginfunction) 
+        #self.pushButton.clicked.connect(self.loginfunction)
+        self.pushButton.clicked.connect(self.loginfunction)
+           
 
 
     def loginfunction(self):
         usuario=self.usuarioL.text() #cambiar
         password = self.contraL.text() #cambiar
-        print(usuario,password)
+        #print(usuario,password)
         conexion=bd_loginyRegis.conexion_BD("BD/Supermark.db")
         op=conexion.consulta(usuario,password)
         id=conexion.consulta3(usuario,password)
-        print(id)
+        #print(id)
         if op==1:
-                 print("hola admin")
+                 print("acceso admin")
                  self.admin.datos(id)
                  self.admin.show()
-                
-        else:
-                print("hola cliente")
+                 self.close()
+               
+        elif op==2:
+                print("acceso cliente")
                 self.cliente.datos(id)
                 self.cliente.show()
+                self.close()
+               
+        else:
+            print("clave o usuario incorrecto \nIngrese nuevamente")
+            #self.admin.removeAction()
+            #self.cliente.removeAction()
+            
         
 def main():
     app = QtWidgets.QApplication(sys.argv)

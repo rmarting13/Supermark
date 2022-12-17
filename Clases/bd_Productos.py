@@ -22,3 +22,10 @@ def actualizar_producto(nombre,stock,precio,nombreC):
     db.consulta(f"UPDATE Productos SET nombre='{nombre}', stock='{stock}', precio='{precio}' WHERE nombre ='{nombreC}'")
     db.commit()
     print("consulta echa")
+
+def actualizar_producto_comprado(nombre,cantidad):
+    print(nombre,cantidad)
+    db = sql.Conexion_BD('BD/Supermark.db')
+    db.consulta(f"UPDATE Productos SET stock=stock-'{cantidad}' WHERE nombre ='{nombre}'")
+    db.commit()
+    print("consulta echa")

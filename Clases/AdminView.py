@@ -78,7 +78,7 @@ class Ui_MainWindow(object):
         self.MenuButton.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/icons/icons/4619355-200.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.MenuButton.setIcon(icon)
+        self.MenuButton.setIcon(QtGui.QIcon("interfaces/icons/bars.png"))
         self.MenuButton.setIconSize(QtCore.QSize(30, 30))
         self.MenuButton.setFlat(False)
         self.MenuButton.setObjectName("MenuButton")

@@ -6,7 +6,7 @@ from AdminView import Ui_MainWindow
 from PopUp import Dialogo
 import usuarios
 import productos
-
+import nro_compra
 class AdminView(QtWidgets.QMainWindow):
     def __init__(self):
        
@@ -35,7 +35,7 @@ class AdminView(QtWidgets.QMainWindow):
             self.animacion.setEasingCurve(QEasingCurve.InOutCirc)
             self.animacion.start()
         except:
-            self.ui.MenuButton.setIcon(QtGui.QIcon("interfaces/ui/icons/bars.png"))
+            self.ui.MenuButton.setIcon(QtGui.QIcon("interfaces/icons/bars.png"))
             self.animacion.setStartValue(50)
             self.animacion.setEndValue(50)
             self.animacion.setDuration(350)
@@ -67,6 +67,8 @@ class AdminView(QtWidgets.QMainWindow):
         #self.__cargarDatosCuenta()
 
         self.__cargarProductosDB()
+
+        self.__cargarUsuariosDB()
         
         self.__controlEntradaDeTexto()
 
@@ -233,13 +235,32 @@ class AdminView(QtWidgets.QMainWindow):
 
     def __funcionAlClickearCeldasTablaClientes(self):
         #Conectar con la base de datos
-        nombre = self.ui.tablaProductos.selectedIndexes()[0].data()
+        #nombre = self.ui.tablaClientes.selectedIndexes()[0].data()
         #self._cargarDetalleDeCompra(nombre,bd)
-        self.ui.lblNroCompra_2.setText(self.ui.tablaProductos.selectedIndexes()[4].data())
-
+        #self.ui.lblNroCompra_2.setText(self.ui.tablaClientes.selectedIndexes()[0].data())
+        pass
         
+    def __cargarUsuariosDB(self):
 
-    def __cargarDetalleDeCompra(self,nombre,db):
+        datosU=usuarios.Usuarios.ver_usuarios()
+        print(datosU,"hola")
+        #nroCompra=nro_compra.Ventas.retornarNroCompra()
+        #nroCompra=nroCompra[0][0]
+        #print(nroCompra,"linea 248")
+
+        row = self.ui.tablaClientes.rowCount()
+        for date in datosU:
+           print(date)
+           nroCompra=nro_compra.Ventas.retornarNroCompra(date[0])
+           nroCompra=nroCompra[0][0]
+           self.ui.tablaClientes.insertRow(row)
+           self.ui.tablaClientes.setItem(row, 0, QtWidgets.QTableWidgetItem(str(date[3])))
+           self.ui.tablaClientes.setItem(row,1,QtWidgets.QTableWidgetItem(str(date[4])))
+           self.ui.tablaClientes.setItem(row, 2, QtWidgets.QTableWidgetItem(str(date[5])))
+           self.ui.tablaClientes.setItem(row, 3, QtWidgets.QTableWidgetItem(str(nroCompra)))
+           row+=1
+    
+    #def __cargarDetalleDeCompra(self,nombre,db):
         #buscar nombre en db
         # row es la lista de datos de la tabla compra de un cliente de la base de datos (db)
         #lista = guardar la tabla del detalle de compra del cliente
@@ -249,7 +270,7 @@ class AdminView(QtWidgets.QMainWindow):
         #     self.ui.tablaDetalleCompra.setItem(rowDet, 0, QtWidgets.QTableWidgetItem(str(row[0])))
         #     self.ui.tablaDetalleCompra.setItem(rowDet, 1, QtWidgets.QTableWidgetItem(str(row[1])))
         #     self.ui.tablaDetalleCompra.setItem(rowDet, 2, QtWidgets.QTableWidgetItem(str(row[2])))
-        pass
+     #   pass
 
 
        

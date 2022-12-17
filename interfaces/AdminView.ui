@@ -647,9 +647,9 @@ color: rgb(255, 222, 52);</string>
                 <widget class="QTableWidget" name="tablaClientes">
                  <property name="geometry">
                   <rect>
-                   <x>30</x>
+                   <x>100</x>
                    <y>160</y>
-                   <width>561</width>
+                   <width>421</width>
                    <height>521</height>
                   </rect>
                  </property>
@@ -837,6 +837,11 @@ border-width: 1px;</string>
                  <property name="columnCount">
                   <number>4</number>
                  </property>
+                 <row>
+                  <property name="text">
+                   <string>1</string>
+                  </property>
+                 </row>
                  <column>
                   <property name="text">
                    <string>Nombre</string>
@@ -881,6 +886,26 @@ border-width: 1px;</string>
                    </font>
                   </property>
                  </column>
+                 <item row="0" column="0">
+                  <property name="text">
+                   <string>julian</string>
+                  </property>
+                 </item>
+                 <item row="0" column="1">
+                  <property name="text">
+                   <string>alaska 231</string>
+                  </property>
+                 </item>
+                 <item row="0" column="2">
+                  <property name="text">
+                   <string>423234</string>
+                  </property>
+                 </item>
+                 <item row="0" column="3">
+                  <property name="text">
+                   <string>14</string>
+                  </property>
+                 </item>
                 </widget>
                 <widget class="QLabel" name="lblListaClientes">
                  <property name="geometry">

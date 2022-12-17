@@ -40,7 +40,8 @@ class Producto:
 
     def actualizar_producto(self,nombreC):
         bd_Productos.actualizar_producto(self.__nombre,self.__stock,self.__precio,nombreC)
-    
+    def actualizar_producto_comprado(nombreP,cantidadP):
+        bd_Productos.actualizar_producto_comprado(nombreP,cantidadP)
     def __str__(self):
         return f"""
         Nombre = {self.__nombre}
