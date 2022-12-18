@@ -10,5 +10,5 @@ def agregarVentaRealizada(cantidad,precio,productos,idventa):
     print(type(productos))
     print(productos)
     db = sql.Conexion_BD('BD/Supermark.db')
-    db.consulta(f"INSERT INTO Ventas_Productos VALUES(NULL,'{cantidad}','{precio}','{productos}','{idventa}')")
+    db.consulta(f'INSERT INTO Ventas_Productos VALUES(NULL,"{cantidad}","{precio}","{productos}","{idventa}")')
     db.commit()
