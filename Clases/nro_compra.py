@@ -11,4 +11,6 @@ class Ventas:
         """
     def retornarNroCompra(iduser):
         return bd_nro_compra.retorna_nroCompra(iduser)
+    def agregarCompra(self):
+        bd_nro_compra.agregar_compra(self.fecha_v,self.idusuario)
     

@@ -338,6 +338,9 @@ class ClientView(QtWidgets.QMainWindow):
         print(fechA)
         print(idU)
         venta1=nro_compra.Ventas(fechA,idU)
+        
+        venta1.agregarCompra()
+        
         print(venta1)
         Ncompra=nro_compra.Ventas.retornarNroCompra(idU)
         print(Ncompra)
@@ -345,7 +348,7 @@ class ClientView(QtWidgets.QMainWindow):
         #venta1.retornarNroCompra()
         venta1=Ventas_produc.ventas_produc(self.cantidad,self.importetotal,self.listaProduc,Ncompra[0][0])
         print(venta1)
-        print("linea348")
+        #print("linea348")
         venta1.agregarVentaRealizada()
         print(self.cantidad)
         
