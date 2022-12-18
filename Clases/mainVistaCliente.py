@@ -246,7 +246,7 @@ class ClientView(QtWidgets.QMainWindow):
             cant1 = int(self.ui.lblCantTotalProdSelec.text())
             cant2 = int(self.ui.lblCantidadProductos_2.text())
             self.ui.lblCantidadProductos_2.setText(str(cant1+cant2))
-            self.cantidad=self.ui.lblCantidadProductos_2.setText(str(cant1+cant2))
+            self.cantidad=self.ui.lblCantidadProductos_2.text()
 
             self.popUp.abrirDialogo("Productos agregados con éxito!")
             self.__limpiarFormularioInicio()
@@ -343,8 +343,12 @@ class ClientView(QtWidgets.QMainWindow):
         print(Ncompra)
         print(self.listaProduc)
         #venta1.retornarNroCompra()
-        venta1=Ventas_produc.ventas_produc(self.importetotal,self.listaProduc,Ncompra[0][0])
+        venta1=Ventas_produc.ventas_produc(self.cantidad,self.importetotal,self.listaProduc,Ncompra[0][0])
         print(venta1)
+        print("linea348")
+        venta1.agregarVentaRealizada()
+        print(self.cantidad)
+        
         print(self.importetotal)
     def __accionBtnHistorial(self):
 
