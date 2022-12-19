@@ -8,13 +8,14 @@ from HistorialCompras import HistorialCompras
 import productos
 import nro_compra
 import Ventas_produc
+import bd_ventas_produc
 class ClientView(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.id= " "
         self.iduser=None
-        self.importetotal=" "
-        self.cantidad=None
+        self.subtotales=[]
+        self.cantidad=[]
         self.listaProduc=[]
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
@@ -64,7 +65,6 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.btnConfirmar.setDisabled(True)
         self.ui.btnCancelar.setDisabled(True)
         self.ui.btnAgregar.setDisabled(True)
-        # self.ingresar.clicked.connect(self.vistaAdminfunction)
         #permite la selección de una fila completa al hacer click en cualquier celda
         self.ui.tablaProductos.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         self.ui.tablaProductos.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
@@ -96,7 +96,7 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.InicioButton.clicked.connect(self.__accionBtnInicio)
         self.ui.CuentaButton.clicked.connect(self.__accionBtnCuenta)
         self.ui.CompraButton.clicked.connect(self.__accionBtnCompra)
-        #self.ui.btnCerrarSesion.clicked.connect(self.__accionBtnCerrarSesion)
+        self.ui.btnCerrarSesion.clicked.connect(self.__accionBtnCerrarSesion)
         self.ui.btnHistorial.clicked.connect(self.__accionBtnHistorial)
         self.ui.btnAgregar.clicked.connect(self.__accionBtnAgregarAlCarrito)
         self.ui.btnCancelar.clicked.connect(self.__accionBtnCancelarCompra)
@@ -123,9 +123,8 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.InicioButton.setStyleSheet(self.ui.InicioButton.styleSheet().replace("#ffdd52","transparent"))
         self.ui.CuentaButton.setStyleSheet(self.ui.CuentaButton.styleSheet().replace("#1aa7ff","transparent"))
 
-    #def __accionBtnCerrarSesion(self):
-        #llamar al método que inicia la ui de registro
-    #    self.close()
+    def __accionBtnCerrarSesion(self):
+        self.close()
 
     def datos(self,id):
         self.__cargarDatosCuenta(id)
@@ -133,29 +132,24 @@ class ClientView(QtWidgets.QMainWindow):
     def __cargarDatosCuenta(self,ide):
         #Conectar con la DB
         tupla=usuarios.Usuarios.verPerfil(ide)
-        iduser=tupla[0][0]
-        email=tupla[0][1]
-        password=tupla[0][2]
-        nombre=tupla[0][3]
-        telefono=tupla[0][4]
-        domicilio=tupla[0][5]
-        idrol=tupla[0][6]
+        iduser=tupla[0]
+        email=tupla[1]
+        password=tupla[2]
+        nombre=tupla[3]
+        telefono=tupla[4]
+        domicilio=tupla[5]
+        idrol=tupla[6]
         self.iduser=iduser
         usuarioPrin=usuarios.Usuarios(iduser,email,password,nombre,telefono,domicilio,idrol)
         print(usuarioPrin)
         #print(self.id)
         print(tupla)
-        self.ui.lblUsuario_2.setText(f"{tupla[0][3]}")
-        self.ui.lblEmail_2.setText(f"{tupla[0][1]}")
-        self.ui.lblDom_2.setText(f"{tupla[0][4]}")
+        self.ui.lblUsuario_2.setText(f"{nombre}")
+        self.ui.lblEmail_2.setText(f"{email}")
+        self.ui.lblDom_2.setText(f"{telefono}")
     
     def __cargarProductosDB(self):
-        #TIP: crear una lista para almacenar cada fila de la base de datos, luego pasarlas como parámetros
-        #por referencia a los generadores de las tablas de la UI, de modo que las modificaciones realizadas
-        #en los elementos de las tablas impacten en forma directa sobre el contenido de las listas, para luego
-        #volver a enviar las mismas listas a la base de datos para actualizar su contenido.
-        
-        #self.__completarTablaProductos(self.db.consultaFetchAll)
+       
         datos=productos.Producto.ver_productos()
         print(datos)
         print("linea 146")
@@ -246,7 +240,6 @@ class ClientView(QtWidgets.QMainWindow):
             cant1 = int(self.ui.lblCantTotalProdSelec.text())
             cant2 = int(self.ui.lblCantidadProductos_2.text())
             self.ui.lblCantidadProductos_2.setText(str(cant1+cant2))
-            self.cantidad=self.ui.lblCantidadProductos_2.text()
 
             self.popUp.abrirDialogo("Productos agregados con éxito!")
             self.__limpiarFormularioInicio()
@@ -294,7 +287,6 @@ class ClientView(QtWidgets.QMainWindow):
     def __generarListaDeTuplas(self,tabla=QtWidgets.QTableWidget):
     #Retorna los elementos de una tabla en formato de lista de tuplas, donde cada tupla de la lista
     #es una fila, y cada elemento de la tupla (fila) es una columna
-        
         filas = []
         for row in range(tabla.rowCount()):
             columnas = []
@@ -322,41 +314,53 @@ class ClientView(QtWidgets.QMainWindow):
         print(usuarios.Usuarios.email)
         row=self.ui.tablaDetalle.rowCount()
         for i in range(row):
-          nombreP=productosL[i][0].text()#nombre
-          self.listaProduc.append(nombreP)
-          cantidadP=productosL[i][1].text()#cantidad
-          productos.Producto.actualizar_producto_comprado(nombreP,cantidadP)
+            nombreP=productosL[i][0].text()#nombre
+            self.listaProduc.append(nombreP)
+            cantidadP=productosL[i][1].text()#cantidad
 
+            """----------------------------------------------------------------------------------------------"""      
+            self.subtotales.append(productosL[i][2].text()) #se agregan a la lista los subtotales de cada productos
+            #se agregará a la lista la cantidad correspondiente a cada producto, cuya
+            self.cantidad.append(cantidadP)#posición en la lista se corresponde con la posición de cada producto en listaProd
+            """----------------------------------------------------------------------------------------------"""      
+          
+            productos.Producto.actualizar_producto_comprado(nombreP,cantidadP)
+
+        """----------------------------------------------------------------------------------------------"""      
+        cantTotal = self.ui.lblCantidadProductos_2.text()
+        subtotal = self.ui.lblSubtotalImporte.text()
+        descuento = self.ui.lblBonifImporte.text()
+        total = self.ui.lblTotalImporte.text()
+        """----------------------------------------------------------------------------------------------"""      
+        
         self.popUp.abrirDialogo("Se ha confirmado la compra!")
-        self.actualizarNroDeCompra()
+        self.actualizarNroDeCompra(cantTotal,subtotal,descuento,total)
         self.__limpiarFormularioCompras()
 
-    def actualizarNroDeCompra(self):
+    def actualizarNroDeCompra(self,cantTotal,subtotal,desc,total):
         from datetime import date
         fechA=date.today()
-        idU=self.iduser
-        print(fechA)
-        print(idU)
-        venta1=nro_compra.Ventas(fechA,idU)
+        #idU=self.iduser
+        #print(fechA)
+        #print(idU)
+        #venta1=nro_compra.Ventas(fechA,idU) 
+        #venta1.agregarCompra()
         
-        venta1.agregarCompra()
-        
-        print(venta1)
-        Ncompra=nro_compra.Ventas.retornarNroCompra(idU)
-        print(Ncompra)
-        print(self.listaProduc)
+        #print(venta1)
+        #Ncompra=nro_compra.Ventas.retornarNroCompra(idU)
+        #print(Ncompra)
+        #print(self.listaProduc)
         #venta1.retornarNroCompra()
-        venta1=Ventas_produc.ventas_produc(self.cantidad,self.importetotal,self.listaProduc,Ncompra[0][0])
-        print(venta1)
+        venta1=Ventas_produc.ventas_produc(self.iduser,fechA,self.listaProduc,self.cantidad,self.subtotales,cantTotal,subtotal,desc,total)
+        #print(venta1)
         #print("linea348")
-        venta1.agregarVentaRealizada()
-        print(self.cantidad)
-        
-        print(self.importetotal)
-    def __accionBtnHistorial(self):
 
-       self.ventanaHistorial.cargarHistorial("pasar la base de datos")
-       self.ventanaHistorial.show()
+        venta1.agregarVentaRealizada()
+    
+    def __accionBtnHistorial(self):
+        self.ventanaHistorial.cargarHistorial(self.iduser)
+        self.ventanaHistorial.show()
+       
     
     def __limpiarFormularioInicio(self):
         self.__eliminarFilas(self.ui.tablaSeleccion)

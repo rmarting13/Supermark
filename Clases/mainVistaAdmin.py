@@ -8,6 +8,8 @@ import usuarios
 import productos
 import nro_compra
 import Ventas_produc
+import bd_ventas_produc
+
 class AdminView(QtWidgets.QMainWindow):
     def __init__(self):
        
@@ -51,6 +53,7 @@ class AdminView(QtWidgets.QMainWindow):
         # self.ingresar.clicked.connect(self.vistaAdminfunction)
         #permite la selección de una fila completa al hacer click en cualquier celda
         self.ui.tablaProductos.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
+        self.ui.tablaClientes.setSelectionBehavior(QtWidgets.QTableWidget.SelectRows)
         self.ui.tablaProductos.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.ui.tablaClientes.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 
@@ -119,9 +122,9 @@ class AdminView(QtWidgets.QMainWindow):
         tupla=usuarios.Usuarios.verPerfil(ide)
         #print(self.id)
         print(tupla)
-        self.ui.lblUsuario_2.setText(f"{tupla[0][3]}")
-        self.ui.lblEmail_2.setText(f"{tupla[0][1]}")
-        self.ui.lblDom_2.setText(f"{tupla[0][4]}")
+        self.ui.lblUsuario_2.setText(f"{tupla[3]}")
+        self.ui.lblEmail_2.setText(f"{tupla[1]}")
+        self.ui.lblDom_2.setText(f"{tupla[4]}")
     
     def __cargarProductosDB(self):
 
@@ -135,6 +138,7 @@ class AdminView(QtWidgets.QMainWindow):
            self.ui.tablaProductos.setItem(row,1,QtWidgets.QTableWidgetItem(str(date[3])))
            self.ui.tablaProductos.setItem(row, 2, QtWidgets.QTableWidgetItem(str(date[2])))
            row+=1
+
     def __controlEntradaDeTexto(self):
        
         self.ui.lineEditDescripcion.textChanged.connect(self.__enableDisableBtnAgregar)
@@ -236,18 +240,11 @@ class AdminView(QtWidgets.QMainWindow):
 
     def __funcionAlClickearCeldasTablaClientes(self):
         #Conectar con la base de datos
-        
-        nroCompra = self.ui.tablaClientes.selectedIndexes()[0].data()
-        #suponemos que apretamos en nroCompra
-        """"a corregiiir"""
-        print(nroCompra[0][0])
-
-        self.__cargarDetalleDeCompra(nroCompra)
-        self.ui.lblNroCompra_2.setText(self.ui.tablaClientes.selectedIndexes()[0].data())
+        idUsuario = self.ui.tablaClientes.selectedIndexes()[3].data()
+        self.__cargarDetalleDeCompra(idUsuario)
        
         
     def __cargarUsuariosDB(self):
-
         datosU=usuarios.Usuarios.ver_usuarios()
         print(datosU,"hola")
         #nroCompra=nro_compra.Ventas.retornarNroCompra()
@@ -257,32 +254,58 @@ class AdminView(QtWidgets.QMainWindow):
         row = self.ui.tablaClientes.rowCount()
         for date in datosU:
            print(date)
-           nroCompra=nro_compra.Ventas.retornarNroCompra(date[0])
-           nroCompra=nroCompra[0][0]
+           idUsuario=date[0]
            self.ui.tablaClientes.insertRow(row)
            self.ui.tablaClientes.setItem(row, 0, QtWidgets.QTableWidgetItem(str(date[3])))
            self.ui.tablaClientes.setItem(row,1,QtWidgets.QTableWidgetItem(str(date[4])))
            self.ui.tablaClientes.setItem(row, 2, QtWidgets.QTableWidgetItem(str(date[5])))
-           self.ui.tablaClientes.setItem(row, 3, QtWidgets.QTableWidgetItem(str(nroCompra)))
-           row+=1
+           self.ui.tablaClientes.setItem(row, 3, QtWidgets.QTableWidgetItem(str(idUsuario)))
     
-    def __cargarDetalleDeCompra(self,nroCompra):
-     
-        #buscar nroCompra en db
-        # row es la lista de datos de la tabla compra de un cliente de la base de datos (db)
-        #lista=[("manzana",300,1200)]
-        lista=Ventas_produc.ventas_produc.consultar_compra_porNro(str(nroCompra))
-        print(lista)
-        #guardar la tabla del detalle de compra del cliente
-        for row in lista:
-            rowDet = self.ui.tablaDetalleCompra.rowCount()
-            self.ui.tablaDetalleCompra.insertRow(rowDet)
-            self.ui.tablaDetalleCompra.setItem(rowDet, 0, QtWidgets.QTableWidgetItem(str(row[0])))
-            self.ui.tablaDetalleCompra.setItem(rowDet, 1, QtWidgets.QTableWidgetItem(str(row[1])))
-            self.ui.tablaDetalleCompra.setItem(rowDet, 2, QtWidgets.QTableWidgetItem(str(row[2])))
-       
+    def __cargarDetalleDeCompra(self,idUsuario):
+        self.__limpiarFormulario()
+        tupla = bd_ventas_produc.extraerUltimaVenta(idUsuario)
+        if tupla is not None:
+            prod = self.__formatearStringATupla(tupla[3])
+            cant = self.__formatearStringATupla(tupla[4])
+            sub = self.__formatearStringATupla(tupla[5])
 
+            print(prod)
+            self.ui.lblNroCompra_2.setText(str(tupla[0]))
+            self.ui.lblFechaInput.setText(tupla[2])
+            if len(prod)>1:
+                ind = 1
+            else:
+                ind = 0
+            for row in range(len(prod)-ind):
+                self.ui.tablaDetalleCompra.insertRow(row)
+                self.ui.tablaDetalleCompra.setItem(row,0,QtWidgets.QTableWidgetItem(prod[row]))
+                self.ui.tablaDetalleCompra.setItem(row,1,QtWidgets.QTableWidgetItem(cant[row]))
+                self.ui.tablaDetalleCompra.setItem(row,2,QtWidgets.QTableWidgetItem(sub[row]))
+            self.ui.lblCantTotalProd.setText(str(tupla[6]))
+            self.ui.lblSubtotalImporte.setText(str(tupla[7]))
+            self.ui.lblBonifImporte.setText(str(tupla[8]))
+            self.ui.lblTotalImporte.setText(str(tupla[9]))
+        else:
+            self.popUp.abrirDialogo("El cliente seleccionado no ha\n realizado ninguna compra!")
 
+    def __formatearStringATupla(self,cad):
+        tupla = cad.replace("[","")
+        tupla = tupla.replace("]","")
+        tupla = tupla.replace("'","")
+        lista = tupla.split(",")
+        return lista
+
+    def __eliminarFilas(self,tabla=QtWidgets.QTableWidget):
+        cant = tabla.rowCount()
+        for row in range(cant,-1,-1):
+            tabla.removeRow(row)
+
+    def __limpiarFormulario(self):
+        self.__eliminarFilas(self.ui.tablaDetalleCompra)
+        self.ui.lblSubtotalImporte.setText("0")
+        self.ui.lblCantTotalProd.setText("0")
+        self.ui.lblBonifImporte.setText("0")
+        self.ui.lblTotalImporte.setText("0")
        
 def main():
         app = QtWidgets.QApplication(sys.argv)
