@@ -23,7 +23,6 @@ class Register(QtWidgets.QMainWindow):
          telefono = self.telefR.text()
          email=self.emailR.text()
          password = self.contraR.text()
-    #     print(nombre,email,password)
          conexion=bd_loginyRegis.conexion_BD("BD/Supermark.db")
          conexion.consulta2(nombre,direccion,telefono,email,password)
         

@@ -23,8 +23,11 @@ class ventas_produc:
         descuento = {self.__desc}
         total = {self.__total}
         """
+    def consultarCantComprasRealizadas(idUsuario):
+        return bd_ventas_produc.totalComprasRealizadas(idUsuario)
     def consultar_compra_porNro(nroCompra):
         return bd_ventas_produc.extraer_compra(nroCompra)
+
     def agregarVentaRealizada(self):
         print(self.__cantidades,self.__subtotales,self.__idproductos)
         bd_ventas_produc.agregarVentaRealizada(self.__idusuario,self.__fecha_v,self.__idproductos,self.__cantidades,self.__subtotales,self.__cantTotal,self.__subtotal,self.__desc,self.__total)

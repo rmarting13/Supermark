@@ -6,9 +6,7 @@ from PopUp import Dialogo
 import usuarios
 from HistorialCompras import HistorialCompras
 import productos
-import nro_compra
 import Ventas_produc
-import bd_ventas_produc
 class ClientView(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -24,7 +22,6 @@ class ClientView(QtWidgets.QMainWindow):
         self.__oldValues = []
         self.setupUiComponents()
         self.popUp = Dialogo()
-        #self.db = db conectar con la base de datos
         self.ui.MenuButton.clicked.connect(self.expandir)
 
     @property
@@ -35,8 +32,6 @@ class ClientView(QtWidgets.QMainWindow):
     def limites(self,lim):
         self.__limites = lim
         
-    
-
     def expandir(self):
         ancho = self.ui.MenuIzquierdo.width()
         if ancho == 50:
@@ -88,7 +83,6 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.tablaProductos.verticalHeader().hide()
         self.ui.tablaSeleccion.verticalHeader().hide()
 
-        #self.__cargarDatosCuenta()
         self.__cargarProductosDB()
         
         self.ui.tablaProductos.clicked.connect(self.__funcionAlClickearCeldasTablaProductos)
@@ -141,21 +135,18 @@ class ClientView(QtWidgets.QMainWindow):
         idrol=tupla[6]
         self.iduser=iduser
         usuarioPrin=usuarios.Usuarios(iduser,email,password,nombre,telefono,domicilio,idrol)
-        print(usuarioPrin)
-        #print(self.id)
-        print(tupla)
         self.ui.lblUsuario_2.setText(f"{nombre}")
         self.ui.lblEmail_2.setText(f"{email}")
         self.ui.lblDom_2.setText(f"{telefono}")
+        cantCompras = Ventas_produc.ventas_produc.consultarCantComprasRealizadas(self.iduser)
+        if cantCompras != None and int(cantCompras[0]) >= 3:
+            self.ui.lblBonif_2.setText("SI")
+        else:
+            self.ui.lblBonif_2.setText("NO")
     
     def __cargarProductosDB(self):
-       
         datos=productos.Producto.ver_productos()
-        print(datos)
-        print("linea 146")
         self.__completarTablaProductos(datos)
-
-
 
     def __completarTablaProductos(self,datos):
         lim = {}
@@ -166,7 +157,6 @@ class ClientView(QtWidgets.QMainWindow):
             self.ui.tablaProductos.setItem(row, 1, QtWidgets.QTableWidgetItem(str(item[2])))
             lim[item[1]] = item[3]
         self.limites = lim #lim contiene el stock de cada producto, el cual indica el límite que puede comprar el cliente
-        print(lim)
 
     def __funcionAlClickearCeldasTablaProductos(self):
         if int(self.ui.lblCantTotalProdSelec.text()) < 30:
@@ -201,7 +191,6 @@ class ClientView(QtWidgets.QMainWindow):
     def __funcionSpinBox(self,precio,row,oldValue):
         totalCant = int(self.ui.lblCantTotalProdSelec.text())
         subtotal = float(self.ui.lblSubtotalSelec.text())
-        print(subtotal)
         newValue = self.ui.tablaSeleccion.cellWidget(row,1).value()
         if oldValue[row] < newValue: #se incrementó la cantidad (el valor del spinBox)
             if totalCant < 30:
@@ -222,7 +211,6 @@ class ClientView(QtWidgets.QMainWindow):
                 cant = totalCant - 1
                 suma = subtotal - float(precio)
                 self.ui.lblCantTotalProdSelec.setText(str(cant))
-                print(suma)
                 self.ui.lblSubtotalSelec.setText(str(suma))
         oldValue[row] = newValue
         if float(self.ui.lblCantTotalProdSelec.text())!=0 and self.__hayEspacioEnCarrito(float(self.ui.lblCantTotalProdSelec.text())):
@@ -235,7 +223,6 @@ class ClientView(QtWidgets.QMainWindow):
     def __accionBtnAgregarAlCarrito(self):
         if self.ui.tablaSeleccion.rowCount()!=0:
             datos = self.__generarListaDeTuplas(self.ui.tablaSeleccion)
-            #print(datos)
             self.__completarTablaDetalle(datos)
             cant1 = int(self.ui.lblCantTotalProdSelec.text())
             cant2 = int(self.ui.lblCantidadProductos_2.text())
@@ -246,15 +233,12 @@ class ClientView(QtWidgets.QMainWindow):
             self.ui.btnConfirmar.setDisabled(False)
             self.ui.btnCancelar.setDisabled(False)
             self.__oldValues = []
-        
-        
+           
     def __hayEspacioEnCarrito(self,cant):
         cant1 = int(self.ui.lblCantidadProductos_2.text())
         return (cant1+cant)<=30
 
-    def __completarTablaDetalle(self,datos=list()):
-        
-        print(datos)
+    def __completarTablaDetalle(self,datos=list()): 
         suma = 0; bonif = 0
         for row in datos:
             if row[2].text() != "0":
@@ -275,7 +259,6 @@ class ClientView(QtWidgets.QMainWindow):
                     self.ui.tablaDetalle.item(ind,1).setText(str(nuevoCant))
                     self.ui.tablaDetalle.item(ind,2).setText(str(nuevoSub))                   
             
-            #agreg
             actual=float(self.ui.lblSubtotalImporte.text()) 
             self.ui.lblSubtotalImporte.setText(f"{actual+float(sub.text())}")
             if self.ui.lblBonif_2.text().upper() == "SI":
@@ -297,7 +280,6 @@ class ClientView(QtWidgets.QMainWindow):
                 else:
                     columnas.append((tabla.item(row,col)).clone())
             filas.append(tuple(columnas))
-        print(filas)
         return filas
     
     def __accionBtnCancelarCompra(self):
@@ -311,27 +293,20 @@ class ClientView(QtWidgets.QMainWindow):
 
     def __accionBtnConfirmarCompra(self):
         productosL = self.__generarListaDeTuplas(self.ui.tablaDetalle)
-        print(usuarios.Usuarios.email)
         row=self.ui.tablaDetalle.rowCount()
         for i in range(row):
             nombreP=productosL[i][0].text()#nombre
             self.listaProduc.append(nombreP)
             cantidadP=productosL[i][1].text()#cantidad
-
-            """----------------------------------------------------------------------------------------------"""      
             self.subtotales.append(productosL[i][2].text()) #se agregan a la lista los subtotales de cada productos
             #se agregará a la lista la cantidad correspondiente a cada producto, cuya
             self.cantidad.append(cantidadP)#posición en la lista se corresponde con la posición de cada producto en listaProd
-            """----------------------------------------------------------------------------------------------"""      
-          
             productos.Producto.actualizar_producto_comprado(nombreP,cantidadP)
 
-        """----------------------------------------------------------------------------------------------"""      
         cantTotal = self.ui.lblCantidadProductos_2.text()
         subtotal = self.ui.lblSubtotalImporte.text()
         descuento = self.ui.lblBonifImporte.text()
         total = self.ui.lblTotalImporte.text()
-        """----------------------------------------------------------------------------------------------"""      
         
         self.popUp.abrirDialogo("Se ha confirmado la compra!")
         self.actualizarNroDeCompra(cantTotal,subtotal,descuento,total)
@@ -340,28 +315,13 @@ class ClientView(QtWidgets.QMainWindow):
     def actualizarNroDeCompra(self,cantTotal,subtotal,desc,total):
         from datetime import date
         fechA=date.today()
-        #idU=self.iduser
-        #print(fechA)
-        #print(idU)
-        #venta1=nro_compra.Ventas(fechA,idU) 
-        #venta1.agregarCompra()
-        
-        #print(venta1)
-        #Ncompra=nro_compra.Ventas.retornarNroCompra(idU)
-        #print(Ncompra)
-        #print(self.listaProduc)
-        #venta1.retornarNroCompra()
         venta1=Ventas_produc.ventas_produc(self.iduser,fechA,self.listaProduc,self.cantidad,self.subtotales,cantTotal,subtotal,desc,total)
-        #print(venta1)
-        #print("linea348")
-
         venta1.agregarVentaRealizada()
     
     def __accionBtnHistorial(self):
         self.ventanaHistorial.cargarHistorial(self.iduser)
         self.ventanaHistorial.show()
-       
-    
+           
     def __limpiarFormularioInicio(self):
         self.__eliminarFilas(self.ui.tablaSeleccion)
         self.ui.lblCantTotalProdSelec.setText("0")
@@ -376,9 +336,6 @@ class ClientView(QtWidgets.QMainWindow):
         self.ui.lblTotalImporte.setText("0")
         self.ui.btnCancelar.setDisabled(True)
         self.ui.btnConfirmar.setDisabled(True)
-
-    def vistaAdminfunction(self):
-       pass
 
 def main():
         app = QtWidgets.QApplication(sys.argv)

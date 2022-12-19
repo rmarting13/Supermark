@@ -1,5 +1,12 @@
 import sql
 
+def totalComprasRealizadas(idUsuario):
+    db = sql.Conexion_BD('BD/Supermark.db')
+    db.consulta(f"SELECT COUNT(idusuario) FROM Ventas WHERE idusuario = {idUsuario}")
+    db.consulta(f"SELECT id_venta FROM Ventas WHERE idusuario = {idUsuario}")
+    cont=db.cursor.fetchone()
+    return cont
+
 def extrerNumerosDeCompras(idUsuario):
     db = sql.Conexion_BD('BD/Supermark.db')
     db.consulta(f"SELECT id_venta FROM Ventas WHERE idusuario = {idUsuario}")
@@ -15,8 +22,6 @@ def extraerUltimaVenta(idUsuario):
 def extraer_compra(nroCompra):
     db = sql.Conexion_BD('BD/Supermark.db')
     db.consulta(f"SELECT * FROM Ventas WHERE id_venta = {nroCompra}")
-    #db.consulta(f"SELECT Ventas_Productos.idproductos,Ventas_Productos.cantidad,Ventas_Productos.precio FROM Ventas_Productos INNER JOIN Ventas on Ventas.id_venta='{nroCompra}'")
-    #tabla=db.cursor.fetchall()
     tupla = db.cursor.fetchone()
     return tupla
 

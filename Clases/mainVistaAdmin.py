@@ -6,8 +6,6 @@ from AdminView import Ui_MainWindow
 from PopUp import Dialogo
 import usuarios
 import productos
-import nro_compra
-import Ventas_produc
 import bd_ventas_produc
 
 class AdminView(QtWidgets.QMainWindow):
@@ -68,8 +66,6 @@ class AdminView(QtWidgets.QMainWindow):
         self.ui.tablaDetalleCompra.setColumnWidth(1,60)
         self.ui.tablaDetalleCompra.setColumnWidth(2,80)
 
-        #self.__cargarDatosCuenta()
-
         self.__cargarProductosDB()
 
         self.__cargarUsuariosDB()
@@ -118,10 +114,7 @@ class AdminView(QtWidgets.QMainWindow):
 
     def __cargarDatosCuenta(self,ide):
         #Conectar con la DB
-        
         tupla=usuarios.Usuarios.verPerfil(ide)
-        #print(self.id)
-        print(tupla)
         self.ui.lblUsuario_2.setText(f"{tupla[3]}")
         self.ui.lblEmail_2.setText(f"{tupla[1]}")
         self.ui.lblDom_2.setText(f"{tupla[4]}")
@@ -129,8 +122,6 @@ class AdminView(QtWidgets.QMainWindow):
     def __cargarProductosDB(self):
 
         datos=productos.Producto.ver_productos()
-        print(datos)
-
         row = self.ui.tablaProductos.rowCount()
         for date in datos:
            self.ui.tablaProductos.insertRow(row)
@@ -194,15 +185,12 @@ class AdminView(QtWidgets.QMainWindow):
         #print(desc,cant,precio)
         #extraemos el nombre seleccionado en la tabla para buscaarlo y editarlo 
         nombreC = self.ui.tablaProductos.selectedIndexes()[0].data()
-        print(nombreC)
         
         self.ui.tablaProductos.setItem(selectedRow.row(),0,QtWidgets.QTableWidgetItem(desc))
         self.ui.tablaProductos.setItem(selectedRow.row(),1,QtWidgets.QTableWidgetItem(cant))
         self.ui.tablaProductos.setItem(selectedRow.row(),2,QtWidgets.QTableWidgetItem(precio))
         
         producto2=productos.Producto(desc,precio,cant)
-        #datos2=producto2.ver_productos()
-        print(producto2)
         producto2.actualizar_producto(nombreC) 
 
         self.popUp.abrirDialogo("Producto modificado con éxito!")
@@ -213,10 +201,8 @@ class AdminView(QtWidgets.QMainWindow):
     
     def __accionBtnEliminar(self):
         selectedRows = self.ui.tablaProductos.selectionModel().selectedRows()
-       
         for row in selectedRows:
-            self.ui.tablaProductos.removeRow(row.row())
-        
+            self.ui.tablaProductos.removeRow(row.row()) 
         desc = self.ui.lineEditDescripcion_2.text()
         productos.Producto.eliminar_producto(desc)
 
@@ -230,11 +216,9 @@ class AdminView(QtWidgets.QMainWindow):
         desc = self.ui.tablaProductos.selectedIndexes()[0].data()
         cant = self.ui.tablaProductos.selectedIndexes()[1].data()
         precio = self.ui.tablaProductos.selectedIndexes()[2].data()
-        #print(desc,cant,precio)
         self.ui.lineEditDescripcion_2.setText(str(desc))
         self.ui.lineEditCantidad_2.setText(str(cant))
         self.ui.lineEditPrecio_2.setText(str(precio))
-
         self.ui.btnEliminar.setDisabled(False)
         self.ui.btnModificar.setDisabled(False)
 
@@ -246,11 +230,6 @@ class AdminView(QtWidgets.QMainWindow):
         
     def __cargarUsuariosDB(self):
         datosU=usuarios.Usuarios.ver_usuarios()
-        print(datosU,"hola")
-        #nroCompra=nro_compra.Ventas.retornarNroCompra()
-        #nroCompra=nroCompra[0][0]
-        #print(nroCompra,"linea 248")
-
         row = self.ui.tablaClientes.rowCount()
         for date in datosU:
            print(date)
@@ -268,8 +247,6 @@ class AdminView(QtWidgets.QMainWindow):
             prod = self.__formatearStringATupla(tupla[3])
             cant = self.__formatearStringATupla(tupla[4])
             sub = self.__formatearStringATupla(tupla[5])
-
-            print(prod)
             self.ui.lblNroCompra_2.setText(str(tupla[0]))
             self.ui.lblFechaInput.setText(tupla[2])
             if len(prod)>1:

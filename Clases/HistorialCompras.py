@@ -33,13 +33,11 @@ class HistorialCompras(QtWidgets.QMainWindow):
     def __cargarRegistro(self):
         self.__limpiarFormulario()
         orden = self.ui.comboBox.currentText()
-        print("orden: "+orden)
         #buscar nro de orden en db
         tupla = bd_ventas_produc.extraer_compra(orden)
         prod = self.__formatearStringATupla(tupla[3])
         cant = self.__formatearStringATupla(tupla[4])
         sub = self.__formatearStringATupla(tupla[5])
-        print(prod)
 
         self.ui.lblFecha.setText(tupla[2])
         if len(prod)>1:
