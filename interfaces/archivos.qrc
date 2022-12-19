@@ -1,0 +1,11 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icons/arrow-left-44.png</file>
+    <file>icons/carrito_transp.png</file>
+    <file>icons/user_transp.png</file>
+    <file>icons/home.png</file>
+  </qresource>
+  <qresource prefix="backgraundImages">
+    <file>images/log.png</file>
+  </qresource>
+</RCC>
